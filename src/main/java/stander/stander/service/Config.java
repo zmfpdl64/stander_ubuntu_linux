@@ -20,4 +20,9 @@ public class Config {
     public JpaRepository repository() throws SQLException {
         return new JpaRepository(em);
     }
+
+    @Bean
+    public MemberService memberService() throws SQLException {
+        return new MemberService(repository());
+    }
 }

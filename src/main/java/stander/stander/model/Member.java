@@ -1,20 +1,49 @@
 package stander.stander.model;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class Member {
     private Long id;
+    private String username;
     private String name;
     private String password;
     private String phonenum;
-    private String personnum;
-    private String created;
+    private String personnum_front;
+    private String personnum_back;
+
+//    @Column(name = "created", updatable = false)
+//    @CreatedDate
+//    private LocalDateTime created;
+
+    public String getPersonnum_front() {
+        return personnum_front;
+    }
+
+    public void setPersonnum_front(String personnum_front) {
+        this.personnum_front = personnum_front;
+    }
+
+    public String getPersonnum_back() {
+        return personnum_back;
+    }
+
+    public void setPersonnum_back(String personnum_back) {
+        this.personnum_back = personnum_back;
+    }
+
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
 
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
@@ -49,20 +78,12 @@ public class Member {
     public void setPhonenum(String phonenum) {
         this.phonenum = phonenum;
     }
+//    public LocalDateTime getCreated() {
+//        return created;
+//    }
+//
+//    public void setCreated(LocalDateTime created) {
+//        this.created = created;
+//    }
 
-    public String getPersonnum() {
-        return personnum;
-    }
-
-    public void setPersonnum(String personnum) {
-        this.personnum = personnum;
-    }
-
-    public String getCreated() {
-        return created;
-    }
-
-    public void setCreated(String created) {
-        this.created = created;
-    }
 }
