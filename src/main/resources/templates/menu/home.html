@@ -12,7 +12,8 @@
     height:800px;">
 
 <div layout:fragment="content">
-<h1 th:text="${name}"> hello</h1>
+    <a role="button" class="btn btn-primary" href="/login/logout">로그아웃</a>
+<h1 th:if="${member}" th:text="${member.getUsername()}"> hello</h1>
 </div>
 
 </body>

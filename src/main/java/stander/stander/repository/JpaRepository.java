@@ -8,6 +8,7 @@ import stander.stander.model.Test;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class JpaRepository implements stander.stander.repository.Repository {
@@ -30,14 +31,17 @@ public class JpaRepository implements stander.stander.repository.Repository {
     }
 
     @Override
-    public Member findByName(String name) {
-        Member member = em.createQuery("m select from Member m where m.name = :name", Member.class).setParameter("name", name).getSingleResult();
-        return member;
+    public Optional<Member> findByName(String name) {
+        List<Member> result = em.createQuery("select m from Member m where m.name = :name", Member.class)
+                .setParameter("name", name)
+                .getResultList();
+        return result.stream().findAny();
     }
 
     @Override
-    public Member findByPasswd(String pswd) {
-        Member member = em.createQuery("m select from Memer m where m.password = :password", Member.class).setParameter("password", pswd).getSingleResult();
-        return member;
+    public Optional<Member> findByPasswd(String pswd) {
+        List<Member> result = em.createQuery("select m from Member m where m.password = :passwd", Member.class)
+                .setParameter("passwd", pswd).getResultList();
+        return result.stream().findAny();
     }
 }
