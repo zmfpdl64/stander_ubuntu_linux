@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      lang="ko">
-<style>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org"
 
-</style>
+      lang="ko">
+
 <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark" >
+
 <div class="container-fluid ">
     <a href="/">    <img src="/img/icon.png" style="height:60px; width:60px; margin-right:10px">
     </a>
@@ -38,8 +38,11 @@
             </li>
         </ul>
     </div>
-    <a role="button" class="btn btn-primary" href="/login" style="margin-right:30px">로그인</a>
-    <a role="button" class="btn btn-primary" href="/login/join">회원가입</a>
+    <a th:if="${session.loginMember == null}" role="button" class="btn btn-primary" href="/login" style="margin-right:30px">로그인</a>
+    <a th:if="${session.loginMember == null}" role="button" class="btn btn-primary" href="/login/join">회원가입</a>
+    <a th:if="${session.loginMember != null}" role="button" class="btn btn-primary" href="/login" style="margin-right:30px">마이페이지</a>
+    <a th:if="${session.loginMember != null}" role="button" class="btn btn-primary" href="/login/logout">로그아웃</a>
+
 </div>
 </nav>
 </html>

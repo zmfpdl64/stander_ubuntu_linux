@@ -85,7 +85,7 @@ public class MainController {
         if(member != null) {
             HttpSession session = request.getSession();
             session.setAttribute(SessionConstants.LOGIN_MEMBER, member);
-            session.setMaxInactiveInterval(3);
+
             return "redirect:/";
         }
         bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다");
