@@ -4,13 +4,9 @@
       layout:decorate="~{layout/layout}"
       lang="ko">
 
-<body style="background-image: url('https://interiorbay.co.kr:54306/design/upload_file/BD38940/fb655d3ac7a89f5b0dd759534ba7ae5b_78110_1.jpg');
-    height:800px;">
-
 <div layout:fragment="content">
-    <h1>홈페이지</h1>
+    <h1>마이페이지</h1>
+    <h1 th:if="${member}" th:text="${member.getUsername()}"></h1>
 </div>
-
-</body>
 
 </html>

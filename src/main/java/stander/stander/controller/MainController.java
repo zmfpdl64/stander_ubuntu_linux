@@ -41,17 +41,6 @@ public class MainController {
     @GetMapping("/")
     public String home(HttpServletRequest request, Model model)  {
 
-        HttpSession session = request.getSession();
-        if(session == null) {
-            return "menu/home";
-        }
-        Member member = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
-
-        if(member == null) {
-            return "menu/home";
-        }
-
-        model.addAttribute("member", member);
 
         return "menu/home";
     }
@@ -71,6 +60,23 @@ public class MainController {
         return "menu/map";
     }
 
+    @GetMapping("/mypage")
+    public String mypage(HttpServletRequest request, Model model) {
+        HttpSession session = request.getSession();
+        if(session == null) {
+            return "menu/home";
+        }
+        Member member = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
+
+        if(member == null) {
+            return "menu/home";
+        }
+
+        model.addAttribute("member", member);
+
+        return "menu/mypage";
+    }
+
     @GetMapping("/login")
     public String post_login() {
         return "login/login";
@@ -86,7 +92,7 @@ public class MainController {
             HttpSession session = request.getSession();
             session.setAttribute(SessionConstants.LOGIN_MEMBER, member);
 
-            return "redirect:/";
+            return "redirect:/mypage";
         }
         bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다");
         return "login/login";
