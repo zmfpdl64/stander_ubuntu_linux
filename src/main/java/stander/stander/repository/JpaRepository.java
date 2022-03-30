@@ -1,12 +1,9 @@
 package stander.stander.repository;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-import stander.stander.model.Member;
-import stander.stander.model.Test;
+import stander.stander.model.Entity.Member;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 

@@ -1,4 +1,4 @@
-package stander.stander.model;
+package stander.stander.model.Form;
 
 public class MemberForm {
 

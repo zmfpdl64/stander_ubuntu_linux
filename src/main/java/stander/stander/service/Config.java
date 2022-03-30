@@ -3,6 +3,7 @@ package stander.stander.service;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import stander.stander.repository.JpaRepository;
+import stander.stander.repository.JpaSitRepository;
 
 import javax.persistence.EntityManager;
 import java.sql.SQLException;
@@ -22,7 +23,17 @@ public class Config {
     }
 
     @Bean
+    public JpaSitRepository sitrepository() throws SQLException {
+        return new JpaSitRepository(em);
+    }
+
+    @Bean
     public MemberService memberService() throws SQLException {
         return new MemberService(repository());
+    }
+
+    @Bean
+    public SitService sitService() throws SQLException {
+        return new SitService(sitrepository());
     }
 }

@@ -4,27 +4,29 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import stander.stander.model.LoginForm;
-import stander.stander.model.Member;
-import stander.stander.model.MemberForm;
-import stander.stander.model.Test;
-import stander.stander.repository.JpaRepository;
+import stander.stander.model.Entity.Sit;
+import stander.stander.model.Form.LoginForm;
+import stander.stander.model.Entity.Member;
+import stander.stander.model.Form.MemberForm;
 import stander.stander.service.MemberService;
+import stander.stander.service.SitService;
 import stander.stander.web.SessionConstants;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class MainController {
 
     private MemberService memberService;
+    private SitService sitService;
 
-    public MainController(MemberService memberService) {
+    public MainController(MemberService memberService, SitService sitService) {
         this.memberService = memberService;
+        this.sitService = sitService;
     }
 
 
@@ -51,9 +53,21 @@ public class MainController {
     }
 
     @GetMapping("/reserve")
-    public String reserve() {
+    public String reserve(Model model) {
+
+        List<Sit> sits = sitService.findAll();
+
+//        sitService.use(sit);
+        model.addAttribute("sits", sits);
         return "menu/reserve";
     }
+//    @GetMapping("/reserve/set_sit")
+//    public void reserve() {
+//        for(int i = 0; i < 15; i++) {
+//            Sit sit = new Sit();
+//            sitService.use(sit);
+//        }
+//    } //db에 좌석 생성
 
     @GetMapping("/map")
     public String map() {
@@ -124,8 +138,8 @@ public class MainController {
             session.invalidate();
         }
         return "redirect:/";
-
     }
+
 
 
 }

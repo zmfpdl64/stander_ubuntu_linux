@@ -1,11 +1,9 @@
 package stander.stander.service;
 
 import org.springframework.transaction.annotation.Transactional;
-import stander.stander.model.LoginForm;
-import stander.stander.model.Member;
+import stander.stander.model.Form.LoginForm;
+import stander.stander.model.Entity.Member;
 import stander.stander.repository.Repository;
-
-import java.util.Objects;
 
 @Transactional
 public class MemberService {
@@ -41,7 +39,11 @@ public class MemberService {
         }
         return null;
 //        throw new IllegalArgumentException("로그인 실패했습니다.");
+    }
 
+    public Member findById(Long id) {
+        Member member = repository.findById(id);
+        return member;
     }
 
 }

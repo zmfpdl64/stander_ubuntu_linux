@@ -1,6 +1,6 @@
 package stander.stander.repository;
 
-import stander.stander.model.Member;
+import stander.stander.model.Entity.Member;
 
 import java.util.Optional;
 

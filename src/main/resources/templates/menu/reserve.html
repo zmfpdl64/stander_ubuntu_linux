@@ -4,6 +4,38 @@
       layout:decorate="~{layout/layout}"
       lang="ko">
 
-<h1 layout:fragment="content">예약 페이지</h1>
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-3">
+            <h1>예약 페이지</h1>
+        </div>
+        <div class="col-2">
+            <div th:each="sit : ${sits}">
+                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit.getId()}" >안녕하세요</button>
+
+                <!--                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit.getSit_id()}" >안녕하세요</button>-->
+            </div>
+        </div>
+        <div class="col-2">
+            <div th:each="sit : ${#numbers.sequence(1,5)}">
+                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit}" >안녕하세요</button>
+
+                <!--                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit.getSit_id()}" >안녕하세요</button>-->
+            </div>
+        </div>
+        <div class="col-2">
+            <div th:each="sit : ${#numbers.sequence(1,5)}">
+                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit}" >안녕하세요</button>
+
+                <!--                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit.getSit_id()}" >안녕하세요</button>-->
+            </div>
+        </div>
+        <div class="col-3">
+
+        </div>
+    </div>
+
+
+</div>
 
 </html>

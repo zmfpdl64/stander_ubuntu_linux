@@ -1,4 +1,4 @@
-package stander.stander.model;
+package stander.stander.model.Entity;
 
 import org.springframework.data.annotation.CreatedDate;
 

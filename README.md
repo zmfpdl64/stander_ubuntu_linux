@@ -21,9 +21,9 @@ Path 추가
 resources/application.properties 설정
 
     spring.datasource.driverClassName=org.mariadb.jdbc.Driver
-    spring.datasource.url=jdbc:mariadb://127.0.0.1:3307/stander
-    spring.datasource.username=woojin
-    spring.datasource.password=1234
+    spring.datasource.url=jdbc:mariadb://127.0.0.1:3307/stander //stander는 세션의 이름이다.
+    spring.datasource.username=woojin //사용할 관리자의 아이디
+    spring.datasource.password=1234  //사용할 관리자의 비밀번호 
 
 HeidiSQL을 이용한 MariaDB 연결
 
