@@ -4,7 +4,23 @@
       layout:decorate="~{layout/layout}"
       lang="ko">
 
+
+
 <div layout:fragment="content">
+    <style>
+          .btn1 {
+        border: 1px solid;
+        background-color: gray;
+<!--        width: 100px;-->
+<!--        height: 50px;-->
+<!--        display: flex;-->
+        align-items: center;
+        justify-content: center;
+      }
+            .clicked {
+        background-color: gold;
+      }
+</style>
     <div class="row">
         <br><br><hr>
         <div class="col-2">
@@ -12,45 +28,39 @@
         </div>
         <div class="col-1">
             <br><br>
-            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[2].getId()}"></button> <br><br>
-            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[1].getId()}"></button> <br><br>
-            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[0].getId()}"></button> <br><br>
-            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[0].getId()}"></button> <br><br>
-
-
+<!--            <div  class="div2" th:text="${sits[3].getId()}">4</div> <br><br>-->
+<!--            <div  class="div2" th:text="${sits[3].getId()}">4</div> <br><br>-->
+            <button style="width:100px; height:50px" class="btn1 4" th:text="${sits[3].getId()}"></button> <br><br>
+            <button style="width:100px; height:50px" class="btn1 3" th:text="${sits[2].getId()}"></button> <br><br>
+            <button style="width:100px; height:50px" class="btn1 2" th:text="${sits[1].getId()}"></button> <br><br>
+            <button style="width:100px; height:50px" class="btn1 1" th:text="${sits[0].getId()}"></button> <br><br>
 
         </div>
         <div class="col-5">
-            <button style="width:100px; height:50px; margin-left: 20px" class="btn btn-primary" th:text="${sits[3].getId()}"></button>
-            <button style="width:100px; height:50px; margin-left: 20px" class="btn btn-primary" th:text="${sits[4].getId()}"></button>
-            <button style="width:100px; height:50px; margin-left: 20px" class="btn btn-primary" th:text="${sits[5].getId()}"></button>
-            <button style="width:100px; height:50px; margin-left: 20px" class="btn btn-primary" th:text="${sits[6].getId()}"></button>
-            <button style="width:100px; height:50px; margin-left: 20px" class="btn btn-primary" th:text="${sits[7].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px" class="btn1 5" th:text="${sits[4].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px" class="btn1 6" th:text="${sits[5].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px" class="btn1 7" th:text="${sits[6].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px" class="btn1 8" th:text="${sits[7].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px" class="btn1 9" th:text="${sits[8].getId()}"></button>
             <br><br>
-            <button style="width:100px; height:50px; margin-left: 140px; margin-top: 30px" class="btn btn-primary" th:text="${sits[11].getId()}"></button>
-            <button style="width:100px; height:50px; margin-left: 20px; margin-top: 30px" class="btn btn-primary" th:text="${sits[12].getId()}"></button>
-            <button style="width:100px; height:50px; margin-left: 20px; margin-top: 30px" class="btn btn-primary" th:text="${sits[13].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 140px; margin-top: 30px" class="btn1 14" th:text="${sits[13].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px; margin-top: 30px" class="btn1 15" th:text="${sits[14].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px; margin-top: 30px" class="btn1 16" th:text="${sits[15].getId()}"></button>
             <br><br>
-            <button style="width:100px; height:50px; margin-left: 140px;margin-top: 70px" class="btn btn-primary" th:text="${sits[14].getId()}"></button>
-            <button style="width:100px; height:50px; margin-left: 20px;margin-top: 70px" class="btn btn-primary" th:text="${sits[15].getId()}"></button>
-            <button style="width:100px; height:50px; margin-left: 20px;margin-top: 70px" class="btn btn-primary" th:text="${sits[16].getId()}"></button>
-
-
-
-
-
-
+            <button style="width:100px; height:50px; margin-left: 140px;margin-top: 70px" class="btn1 17" th:text="${sits[16].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px;margin-top: 70px" class="btn1 18" th:text="${sits[17].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px;margin-top: 70px" class="btn1 19" th:text="${sits[18].getId()}"></button>
+            <br><br><br><br><br><br> <button style="float:right" class="btn btn-primary sub">예약하기</button>
         </div>
         <div class="col-1">
             <br><br>
-            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[8].getId()}"></button> <br><br>
-            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[9].getId()}"></button> <br><br>
-            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[10].getId()}"></button> <br><br>
-            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[0].getId()}"></button> <br><br>
+            <button style="width:100px; height:50px" class="btn1 10" th:text="${sits[9].getId()}"></button> <br><br>
+            <button style="width:100px; height:50px" class="btn1 11" th:text="${sits[10].getId()}"></button> <br><br>
+            <button style="width:100px; height:50px" class="btn1 12" th:text="${sits[11].getId()}"></button> <br><br>
+            <button style="width:100px; height:50px" class="btn1 13" th:text="${sits[12].getId()}"></button> <br><br>
 
 
             <!--                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit.getSit_id()}" >안녕하세요</button>-->
-            </div>
         </div>
         <div class="col-2">
             <div>
@@ -59,8 +69,45 @@
         </div>
 
     </div>
+    <script>
+    var div2 = document.getElementsByClassName("btn1");
+    var sub = document.getElementsByClassName("sub");
 
+      function postValue(event) {
+      for(var i = 0; i < div2.length; i++) {
+      if(div2[i].classList[2] === "clicked") {
+<!--            console.log(div2[i].classList[1]);-->
+            location.href="/?num="+div2[i].classList[1];
+      }}}
 
+      function handleClick(event) {
+        console.log(event.target);
+        // console.log(this);
+        // 콘솔창을 보면 둘다 동일한 값이 나온다
+
+        console.log(event.target.classList);
+
+        if (event.target.classList[2] === "clicked") {
+          event.target.classList.remove("clicked");
+        } else {
+          for (var i = 0; i < div2.length; i++) {
+            div2[i].classList.remove("clicked");
+          }
+
+          event.target.classList.add("clicked");
+
+        }
+      }
+
+      function init() {
+        for (var i = 0; i < div2.length; i++) {
+          div2[i].addEventListener("click", handleClick);
+        }
+        sub[0].addEventListener("click", postValue);
+      }
+
+      init();
+</script>
 </div>
 
 </html>
