@@ -42,6 +42,16 @@ public class JpaSitRepository implements SitRepository {
     }
 
     @Override
+    public List<Sit> clear() {
+        List<Sit> sits = em.createQuery("select m from Sit m", Sit.class).getResultList();
+        for(Sit sit: sits) {
+            sit.setMember(null);
+            em.merge(sit);
+        }
+        return sits;
+    }
+
+    @Override
     public Optional<Sit> check_sit() {
         return Optional.empty();
     }

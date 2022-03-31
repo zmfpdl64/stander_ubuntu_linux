@@ -71,6 +71,11 @@ public class MainController {
         model.addAttribute("member", member);
         return "reserve/sit";
     }
+    @GetMapping("/reserve/clear")
+    public String clear() {
+        sitService.clear();
+        return "reserve/reserve";
+    }
 
 //    @GetMapping("/reserve/set_sit")
 //    public void reserve() {

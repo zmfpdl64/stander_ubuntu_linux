@@ -28,6 +28,10 @@ public class SitService {
         sitRepository.exit(sit.getSit_id());
     }
 
+    public void clear() {
+        sitRepository.clear();
+    }
+
     public List<Sit> findAll() {
         return sitRepository.findAll();
     }

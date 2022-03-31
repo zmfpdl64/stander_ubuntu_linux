@@ -11,6 +11,7 @@ public interface SitRepository {
     Sit set(Sit sit);
     Sit use(Long id, Member member);
     Sit exit(Long id);
+    List<Sit> clear();
     Optional<Sit> check_sit();
 
     List<Sit> findAll();
