@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface SitRepository {
 
+    Sit set(Sit sit);
     Sit use(Sit sit);
     Sit exit(Long id);
     Optional<Sit> check_sit();

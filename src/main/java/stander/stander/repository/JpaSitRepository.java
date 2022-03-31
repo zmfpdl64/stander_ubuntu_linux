@@ -18,9 +18,14 @@ public class JpaSitRepository implements SitRepository {
     }
 
     @Override
-    public Sit use(Sit sit) {
+    public Sit set(Sit sit) {
         em.persist(sit);
         return sit;
+    }
+
+    @Override
+    public Sit use(Sit sit) {
+        return null;
     }
 
     @Override

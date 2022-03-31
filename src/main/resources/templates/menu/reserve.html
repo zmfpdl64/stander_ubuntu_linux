@@ -6,33 +6,58 @@
 
 <div layout:fragment="content">
     <div class="row">
-        <div class="col-3">
+        <br><br><hr>
+        <div class="col-2">
             <h1>예약 페이지</h1>
         </div>
-        <div class="col-2">
-            <div th:each="sit : ${sits}">
-                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit.getId()}" >안녕하세요</button>
+        <div class="col-1">
+            <br><br>
+            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[2].getId()}"></button> <br><br>
+            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[1].getId()}"></button> <br><br>
+            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[0].getId()}"></button> <br><br>
+            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[0].getId()}"></button> <br><br>
 
-                <!--                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit.getSit_id()}" >안녕하세요</button>-->
+
+
+        </div>
+        <div class="col-5">
+            <button style="width:100px; height:50px; margin-left: 20px" class="btn btn-primary" th:text="${sits[3].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px" class="btn btn-primary" th:text="${sits[4].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px" class="btn btn-primary" th:text="${sits[5].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px" class="btn btn-primary" th:text="${sits[6].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px" class="btn btn-primary" th:text="${sits[7].getId()}"></button>
+            <br><br>
+            <button style="width:100px; height:50px; margin-left: 140px; margin-top: 30px" class="btn btn-primary" th:text="${sits[11].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px; margin-top: 30px" class="btn btn-primary" th:text="${sits[12].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px; margin-top: 30px" class="btn btn-primary" th:text="${sits[13].getId()}"></button>
+            <br><br>
+            <button style="width:100px; height:50px; margin-left: 140px;margin-top: 70px" class="btn btn-primary" th:text="${sits[14].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px;margin-top: 70px" class="btn btn-primary" th:text="${sits[15].getId()}"></button>
+            <button style="width:100px; height:50px; margin-left: 20px;margin-top: 70px" class="btn btn-primary" th:text="${sits[16].getId()}"></button>
+
+
+
+
+
+
+        </div>
+        <div class="col-1">
+            <br><br>
+            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[8].getId()}"></button> <br><br>
+            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[9].getId()}"></button> <br><br>
+            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[10].getId()}"></button> <br><br>
+            <button style="width:100px; height:50px" class="btn btn-primary" th:text="${sits[0].getId()}"></button> <br><br>
+
+
+            <!--                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit.getSit_id()}" >안녕하세요</button>-->
             </div>
         </div>
         <div class="col-2">
-            <div th:each="sit : ${#numbers.sequence(1,5)}">
-                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit}" >안녕하세요</button>
-
+            <div>
                 <!--                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit.getSit_id()}" >안녕하세요</button>-->
             </div>
         </div>
-        <div class="col-2">
-            <div th:each="sit : ${#numbers.sequence(1,5)}">
-                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit}" >안녕하세요</button>
 
-                <!--                <button class="btn btn-primary" style="margin-top: 30px ;width: 100px; height: 50px" th:if="${sit}" th:text="${sit.getSit_id()}" >안녕하세요</button>-->
-            </div>
-        </div>
-        <div class="col-3">
-
-        </div>
     </div>
 
 

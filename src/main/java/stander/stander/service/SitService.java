@@ -16,7 +16,7 @@ public class SitService {
     }
 
     public void use(Sit sit) {
-        sitRepository.use(sit);
+        sitRepository.set(sit);
     }
 
     public void exit(Sit sit) {

@@ -61,9 +61,10 @@ public class MainController {
         model.addAttribute("sits", sits);
         return "menu/reserve";
     }
+
 //    @GetMapping("/reserve/set_sit")
 //    public void reserve() {
-//        for(int i = 0; i < 15; i++) {
+//        for(int i = 0; i < 30; i++) {
 //            Sit sit = new Sit();
 //            sitService.use(sit);
 //        }
