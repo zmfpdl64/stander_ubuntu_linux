@@ -56,8 +56,6 @@ public class MainController {
     public String reserve(Model model) {
 
         List<Sit> sits = sitService.findAll();
-
-//        sitService.use(sit);
         model.addAttribute("sits", sits);
         return "reserve/reserve";
     }
@@ -72,8 +70,10 @@ public class MainController {
         return "reserve/sit";
     }
     @GetMapping("/reserve/clear")
-    public String clear() {
+    public String clear(Model model) {
         sitService.clear();
+        List<Sit> sits = sitService.findAll();
+        model.addAttribute("sits", sits);
         return "reserve/reserve";
     }
 
