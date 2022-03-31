@@ -59,7 +59,17 @@ public class MainController {
 
 //        sitService.use(sit);
         model.addAttribute("sits", sits);
-        return "menu/reserve";
+        return "reserve/reserve";
+    }
+
+    @GetMapping("/reserve/price")
+    public String price(@RequestParam("num") String num, Model model) {
+        Member member = memberService.findById(7L);
+        Long id = Long.parseLong(num);
+        sitService.use(member, id);
+        model.addAttribute("num", num);
+        model.addAttribute("member", member);
+        return "reserve/sit";
     }
 
 //    @GetMapping("/reserve/set_sit")

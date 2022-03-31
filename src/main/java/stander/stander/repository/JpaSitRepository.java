@@ -1,6 +1,7 @@
 package stander.stander.repository;
 
 import org.springframework.stereotype.Repository;
+import stander.stander.model.Entity.Member;
 import stander.stander.model.Entity.Sit;
 
 import javax.persistence.EntityManager;
@@ -24,8 +25,12 @@ public class JpaSitRepository implements SitRepository {
     }
 
     @Override
-    public Sit use(Sit sit) {
-        return null;
+    public Sit use(Long id, Member member) {
+        Sit sit = em.find(Sit.class, id);
+        sit.setMember(member);
+        em.merge(sit);
+
+        return sit;
     }
 
     @Override
