@@ -61,14 +61,21 @@ public class MainController {
     }
 
     @GetMapping("/reserve/price")
-    public String price(@RequestParam("num") String num, Model model) {
+    public String price(@RequestParam(name = "num", required=false) String num, Model model, HttpServletRequest request) {
+
+        if(request.getSession(false) == null) {
+            model.addAttribute("msg", "로그인이 필요합니다");
+            return "login/login";
+        }
+
         Member member = memberService.findById(7L);
         Long id = Long.parseLong(num);
         sitService.use(member, id);
         model.addAttribute("num", num);
         model.addAttribute("member", member);
-        return "reserve/sit";
+        return "reserve/price";
     }
+
     @GetMapping("/reserve/clear")
     public String clear(Model model) {
         sitService.clear();
@@ -92,7 +99,7 @@ public class MainController {
 
     @GetMapping("/mypage")
     public String mypage(HttpServletRequest request, Model model) {
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         if(session == null) {
             return "menu/home";
         }
@@ -155,7 +162,5 @@ public class MainController {
         }
         return "redirect:/";
     }
-
-
 
 }

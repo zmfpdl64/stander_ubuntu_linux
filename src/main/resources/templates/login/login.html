@@ -36,6 +36,15 @@
       <img src="/img/kakao.png" style="width: 60px; height: 60px; margin-top: 30px; margin-left: 60px">
       <img src="/img/naver.png" style="width: 60px; height: 60px; margin-top: 30px; margin-left: 140px;">
     </div>
+    <script th:inline="javascript">
+  var result = [[${msg}]];
+  if(result != null) {
+  alert(result);
+  }
+</script>
   </div>
+
 </div>
+
+}
 </html>
