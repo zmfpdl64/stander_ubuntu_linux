@@ -70,6 +70,16 @@ public class MainController {
 
         Member member = memberService.findById(7L);
         Long id = Long.parseLong(num);
+//        if(sitService.check_member(member)) {
+//            model.addAttribute("msg", "중복 예약 입니다.");
+//            return "reserve/reserve";
+//        }
+//
+        if(sitService.check_sit(id)) {
+            model.addAttribute("msg", "좌석이 이미 예약 되어 있습니다.");
+            return "reserve/reserve";
+        }
+
         sitService.use(member, id);
         model.addAttribute("num", num);
         model.addAttribute("member", member);
@@ -120,7 +130,8 @@ public class MainController {
     }
 
     @PostMapping("/login")
-    public String check_login(@Valid @ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
+    public String check_login(@Valid @ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response
+    , Model model) {
         if(bindingResult.hasErrors()) {
             return "login/login";
         }
@@ -132,6 +143,7 @@ public class MainController {
             return "redirect:/mypage";
         }
         bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다");
+        model.addAttribute("member", loginForm);
         return "login/login";
     }
 
@@ -142,16 +154,18 @@ public class MainController {
     }
 
     @PostMapping("/login/join")
-    public String create_join(MemberForm memberForm) {
-        Member member = new Member();
-        member.setName(memberForm.getName());
-        member.setUsername(memberForm.getUsername());
-        member.setPassword(memberForm.getPassword());
-        member.setPhonenum(memberForm.getPhonenum());
-        member.setPersonnum_front(memberForm.getPersonnum_front());
-        member.setPersonnum_back(memberForm.getPersonnum_back());
-        memberService.join(member);
-        return "redirect:/";
+    public String create_join(MemberForm memberForm, Model model) {
+//        Member member = new Member();
+//        member.setName(memberForm.getName());
+//        member.setUsername(memberForm.getUsername());
+//        member.setPassword(memberForm.getPassword());
+//        member.setPhonenum(memberForm.getPhonenum());
+//        member.setPersonnum_front(memberForm.getPersonnum_front());
+//        member.setPersonnum_back(memberForm.getPersonnum_back());
+//        memberService.join(member);
+        model.addAttribute("member", memberForm);
+        return "login/join";
+//        return "redirect:/";
     }
 
     @GetMapping("/login/logout")

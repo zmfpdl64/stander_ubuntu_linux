@@ -19,7 +19,7 @@
         justify-content: center;
       }
             .clicked {
-        background-color: gold;
+        background-color: #87ceeb;
       }
       h5 {
       margin-left: 50px;
@@ -28,7 +28,7 @@
 </style>
     <div class="row">
         <h1>구매 페이지</h1>
-        <h3 th:text="|선택한 좌석 : ${num}번|"></h3>
+        <h3 th:if="${num}" th:text="|선택한 좌석 : ${num}번|"></h3>
         <br><br><br><br>
         <div class="col-4">
             <h5 >실시간권</h5>

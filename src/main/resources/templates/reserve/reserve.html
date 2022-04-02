@@ -18,7 +18,7 @@
         justify-content: center;
       }
             .clicked {
-        background-color: gold;
+        background-color: #87ceeb;
       }
 </style>
     <div class="row">
@@ -70,7 +70,16 @@
         </div>
 
     </div>
+
+    <script th:inline="javascript">
+    var message = [[${msg}]];
+        if(message) {
+            alert(message);
+        }
+    </script>
+
     <script>
+
     var div2 = document.getElementsByClassName("btn1");
     var sub = document.getElementsByClassName("sub");
 

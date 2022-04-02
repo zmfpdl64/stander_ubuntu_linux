@@ -52,9 +52,27 @@ public class JpaSitRepository implements SitRepository {
     }
 
     @Override
-    public Optional<Sit> check_sit() {
-        return Optional.empty();
+    public Boolean check_member(Member member) { //특정사용자가 좌석에 있다면 true 없다면 false를 반환한다.
+        List<Sit> sits = findAll();
+        for(Sit sit : sits) {
+            if(sit.getMember().equals(member)) {
+                return true;
+            }
+        }
+        return false;
     }
+
+    @Override
+    public Boolean check_sit(Long id) { //특정 좌석의 사용자가 없다면 false 있다면 true 반환한다.
+        List<Sit> sits = findAll();
+        for(Sit sit : sits) {
+            if(sit.getId().equals(id) && sit.getMember() != null ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     @Override
     public List<Sit> findAll() {

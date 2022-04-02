@@ -35,4 +35,11 @@ public class SitService {
     public List<Sit> findAll() {
         return sitRepository.findAll();
     }
+
+    public Boolean check_member(Member member) {
+        return sitRepository.check_member(member); //존재하면 true 없으면 false
+    }
+    public Boolean check_sit(Long id) {
+        return sitRepository.check_sit(id);
+    }
 }
