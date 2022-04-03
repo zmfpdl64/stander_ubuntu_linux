@@ -75,10 +75,10 @@ public class MainController {
 //            return "reserve/reserve";
 //        }
 //
-        if(sitService.check_sit(id)) {
-            model.addAttribute("msg", "좌석이 이미 예약 되어 있습니다.");
-            return "reserve/reserve";
-        }
+//        if(sitService.check_sit(id)) {
+//            model.addAttribute("msg", "좌석이 이미 예약 되어 있습니다.");
+//            return "reserve/reserve";
+//        }
 
         sitService.use(member, id);
         model.addAttribute("num", num);
@@ -155,17 +155,17 @@ public class MainController {
 
     @PostMapping("/login/join")
     public String create_join(MemberForm memberForm, Model model) {
-//        Member member = new Member();
-//        member.setName(memberForm.getName());
-//        member.setUsername(memberForm.getUsername());
-//        member.setPassword(memberForm.getPassword());
-//        member.setPhonenum(memberForm.getPhonenum());
-//        member.setPersonnum_front(memberForm.getPersonnum_front());
-//        member.setPersonnum_back(memberForm.getPersonnum_back());
-//        memberService.join(member);
+        Member member = new Member();
+        member.setName(memberForm.getName());
+        member.setUsername(memberForm.getUsername());
+        member.setPassword(memberForm.getPassword());
+        member.setPhonenum(memberForm.getPhonenum());
+        member.setPersonnum_front(memberForm.getPersonnum_front());
+        member.setPersonnum_back(memberForm.getPersonnum_back());
+        memberService.join(member);
         model.addAttribute("member", memberForm);
-        return "login/join";
-//        return "redirect:/";
+//        return "login/join";
+        return "redirect:/";
     }
 
     @GetMapping("/login/logout")
