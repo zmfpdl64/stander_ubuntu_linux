@@ -1,5 +1,6 @@
 package stander.stander.controller;
 
+import com.google.zxing.WriterException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +9,7 @@ import stander.stander.model.Entity.Sit;
 import stander.stander.model.Form.LoginForm;
 import stander.stander.model.Entity.Member;
 import stander.stander.model.Form.MemberForm;
+import stander.stander.qr.QRUtil;
 import stander.stander.service.MemberService;
 import stander.stander.service.SitService;
 import stander.stander.web.SessionConstants;
@@ -16,6 +18,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -154,7 +158,7 @@ public class MainController {
     }
 
     @PostMapping("/login/join")
-    public String create_join(MemberForm memberForm, Model model) {
+    public String create_join(@ModelAttribute MemberForm memberForm, Model model) {
         Member member = new Member();
         member.setName(memberForm.getName());
         member.setUsername(memberForm.getUsername());
@@ -175,6 +179,31 @@ public class MainController {
             session.invalidate();
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/codetest")
+    public String makeQr(HttpServletRequest request) throws WriterException, IOException {
+
+        int width = 150;
+        int height = 150;
+
+        HttpSession session = request.getSession(false);
+
+        if(session == null) {
+            return "menu/home";
+        }
+
+        Member member = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
+
+        if(member == null) {
+            return "menu/home";
+        }
+        String url = "http://localhost:8080/open/" + member.getId() ;
+
+        String file_path = "D:\\대학교\\4학년\\STANDER\\STANDER_GIT\\stander\\src\\main\\resources\\static\\img\\"+ member.getId()+"\\";
+        String file_name = "QR.png";
+        QRUtil.makeQR(url , width , height , file_path , file_name);
+        return "qr/test";
     }
 
 }
