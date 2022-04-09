@@ -1,6 +1,9 @@
 package stander.stander.controller;
 
 import com.google.zxing.WriterException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.List;
 
 @Controller
@@ -27,6 +31,9 @@ public class MainController {
 
     private MemberService memberService;
     private SitService sitService;
+
+    @Value("${file.dir}")
+    private String fileDir;
 
     public MainController(MemberService memberService, SitService sitService) {
         this.memberService = memberService;
@@ -57,8 +64,15 @@ public class MainController {
     }
 
     @GetMapping("/reserve")
-    public String reserve(Model model) {
+    public String reserve(Model model, HttpServletRequest request) {
 
+        HttpSession session = request.getSession(false);
+        if(session != null) {
+            Member member = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
+            if(member != null) {
+                model.addAttribute("member", member);
+            }
+        }
         List<Sit> sits = sitService.findAll();
         model.addAttribute("sits", sits);
         return "reserve/reserve";
@@ -84,7 +98,7 @@ public class MainController {
 //            return "reserve/reserve";
 //        }
 
-        sitService.use(member, id);
+        sitService.use(id, member);
         model.addAttribute("num", num);
         model.addAttribute("member", member);
         return "reserve/price";
@@ -92,19 +106,25 @@ public class MainController {
 
     @GetMapping("/reserve/clear")
     public String clear(Model model) {
-        sitService.clear();
-        List<Sit> sits = sitService.findAll();
-        model.addAttribute("sits", sits);
-        return "reserve/reserve";
+        sitService.clearAll();
+//        List<Sit> sits = sitService.findAll();
+//        model.addAttribute("sits", sits);
+        return "redirect:/reserve";
+    }
+    @GetMapping("/reserve/clear/{id}")
+    public String clearOne(@PathVariable("id") Long id) {
+        Member member = memberService.findById(id);
+        sitService.clearOne(member);
+        return "redirect:/reserve";
     }
 
-//    @GetMapping("/reserve/set_sit")
-//    public void reserve() {
-//        for(int i = 0; i < 30; i++) {
-//            Sit sit = new Sit();
-//            sitService.use(sit);
-//        }
-//    } //db에 좌석 생성
+    @GetMapping("/reserve/set_sit")
+    public void reserve() {
+        for(int i = 0; i < 30; i++) {
+            Sit sit = new Sit();
+            sitService.set(sit);
+        }
+    } //db에 좌석 생성
 
     @GetMapping("/map")
     public String map() {
@@ -200,10 +220,16 @@ public class MainController {
         }
         String url = "http://localhost:8080/open/" + member.getId() ;
 
-        String file_path = "D:\\대학교\\4학년\\STANDER\\STANDER_GIT\\stander\\src\\main\\resources\\static\\img\\"+ member.getId()+"\\";
+        String file_path = fileDir + member.getId()+"/";
         String file_name = "QR.png";
         QRUtil.makeQR(url , width , height , file_path , file_name);
         return "qr/test";
+    }
+
+    @ResponseBody
+    @GetMapping("/img/{id}/QR.png")
+    public Resource downloadImage(@PathVariable String id) throws MalformedURLException {
+        return new UrlResource("file:" + fileDir + id+"/QR.png");
     }
 
 }

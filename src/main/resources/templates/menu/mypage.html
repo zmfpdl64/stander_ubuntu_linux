@@ -7,6 +7,15 @@
 <div layout:fragment="content">
     <h1>마이페이지</h1>
     <h1 th:if="${member}" th:text="${member.getUsername()}"></h1>
+    <img src="|/img/${member.getId()}/QR.png|">
+
+<!--    <img th:src="|@{/img/QR.png}|">-->
+    <img th:src="|@{img/icon.png}|">
+<!--    <img th:src="|@{/img/}${member.getId()}/QR.png|" style="width: 200px; height:200px;">-->
+<!--    <img th:src="|/img/${member.getId()}/QR.png|" style="width: 200px; height:200px;">-->
+<!--    <img src="static/img/7/QR.png" style="width: 200px; height:200px;">-->
+<!--    <img src="/img/9/QR.png" style="width: 200px; height:200px;">-->
+<!--    <img src="resources/static/img/7/QR.png" style="width: 200px; height:200px;">-->
 </div>
 
 </html>

@@ -24,7 +24,7 @@ public class QRUtil {
             url = new String(url.getBytes("UTF-8") , "ISO-8859-1");
             BitMatrix matrix = writer.encode(url, BarcodeFormat.QR_CODE, width, height);
             //QR코드 색상
-            int qrColor = 0xFFad1004;
+            int qrColor = 0x00000000;
             MatrixToImageConfig config = new MatrixToImageConfig(qrColor , 0xFFFFFFFF);
             BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(matrix , config);
             ImageIO.write(qrImage ,  "png" ,  new File(file_path+file_name));

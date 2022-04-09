@@ -1,0 +1,32 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3307/jpastander
+    username: woojin
+    password: 1234
+  devtools:
+    livereload:
+      enabled: true
+  freemarker:
+    cache: false
+  thymeleaf:
+    cache: false
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  servlet:
+    session:
+      timeout: 1800
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        type: trace
+
+file:
+  dir: C:/Users/82102/Documents/img/

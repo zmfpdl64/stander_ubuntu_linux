@@ -6,11 +6,13 @@ import stander.stander.repository.JpaRepository;
 import stander.stander.repository.JpaSitRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
 
 @Configuration
 public class Config {
 
+    @PersistenceContext
     private EntityManager em;
 
     public Config(EntityManager em) {

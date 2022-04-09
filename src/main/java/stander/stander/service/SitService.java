@@ -20,16 +20,19 @@ public class SitService {
         sitRepository.set(sit);
     }
 
-    public void use(Member member, Long id) {
-        sitRepository.use(id, member);
+    public void use(Long id, Member member){
+        sitRepository.merge(id, member);
     }
 
-    public void exit(Sit sit) {
-        sitRepository.exit(sit.getSit_id());
+    public void clearOne(Member member) {
+        Sit sit = sitRepository.findByMember(member);
+        sit.setMember(null);
     }
-
-    public void clear() {
-        sitRepository.clear();
+    public void clearAll() {
+        List<Sit> result = sitRepository.findAll();
+        for(Sit sit : result) {
+            sit.setMember(null);
+        }
     }
 
     public List<Sit> findAll() {
@@ -37,9 +40,12 @@ public class SitService {
     }
 
     public Boolean check_member(Member member) {
-        return sitRepository.check_member(member); //존재하면 true 없으면 false
+        return null;
     }
     public Boolean check_sit(Long id) {
-        return sitRepository.check_sit(id);
+        return null;
+    }
+
+    public void use() {
     }
 }
