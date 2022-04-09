@@ -1,8 +1,11 @@
 package stander.stander.controller;
 
+import groovy.util.logging.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
@@ -18,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 class MainControllerTest {
+
+    Logger log = LoggerFactory.getLogger(MainControllerTest.class);
 
     @Autowired
     MemberService memberService;
@@ -55,13 +60,25 @@ class MainControllerTest {
         member.setPersonnum_back("0012345");
         memberService.join(member);
 
-        for(int i = 0; i < 15; i++) {
-            Sit sit = new Sit();
-            sitService.set(sit);
-        }
+//        for(int i = 0; i < 15; i++) {
+//            Sit sit = new Sit();
+//            sitService.set(sit);
+//        }
+        Sit sit1 = new Sit();
+
+        sitService.set(sit1);
 
         sitService.use(1L, member);
+        Sit sit = sitService.findMember(member);
+        Assertions.assertThat(sit.getId()).isEqualTo(1L);
+        log.info("sit.member_id = {}", sit.getMember());
+
         sitService.clearOne(member);
+        Sit cleansit = sitService.findById(1L);
+        Assertions.assertThat(cleansit.getMember()).isEqualTo(null);
+        log.info("sit.member_id = {}", cleansit.getMember());
+
+//        Assertions.assertThat(1).isEqualTo(2);
 
     }
 }

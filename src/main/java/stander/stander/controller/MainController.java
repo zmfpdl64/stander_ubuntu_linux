@@ -1,6 +1,7 @@
 package stander.stander.controller;
 
 import com.google.zxing.WriterException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -27,6 +28,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class MainController {
 
     private MemberService memberService;
@@ -54,7 +56,7 @@ public class MainController {
     @GetMapping("/")
     public String home(HttpServletRequest request, Model model)  {
 
-
+//        log.info("hello");
         return "menu/home";
     }
 

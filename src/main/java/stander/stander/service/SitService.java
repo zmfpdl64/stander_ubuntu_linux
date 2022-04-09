@@ -35,6 +35,16 @@ public class SitService {
         }
     }
 
+    public Sit findMember(Member member) {
+        Sit sit = sitRepository.findByMember(member);
+        return sit;
+    }
+
+    public Sit findById(Long id) {
+        Sit sit = sitRepository.findById(id);
+        return sit;
+    }
+
     public List<Sit> findAll() {
         return sitRepository.findAll();
     }
