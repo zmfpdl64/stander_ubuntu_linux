@@ -100,6 +100,12 @@
                 </fieldset>
             </form>
         </div>
+        <script th:inline="javascript">
+          var result = [[${msg}]];
+          if(result != null) {
+            alert(result);
+          }
+        </script>
     </div>
 </div>
 </html>

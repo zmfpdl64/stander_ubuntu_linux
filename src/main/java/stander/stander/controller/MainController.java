@@ -2,6 +2,7 @@ package stander.stander.controller;
 
 import com.google.zxing.WriterException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -25,32 +26,37 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
 @Slf4j
 public class MainController {
 
+    @Autowired
     private MemberService memberService;
+    @Autowired
     private SitService sitService;
 
     @Value("${file.dir}")
     private String fileDir;
 
-    public MainController(MemberService memberService, SitService sitService) {
-        this.memberService = memberService;
-        this.sitService = sitService;
-    }
-
-
-    @GetMapping("/test")
-    public String layout() {
-        return "layout/layout";
-    }
-//    @GetMapping("/test2")
-//    public String test() {
-//        return "test";
+//    public MainController(MemberService memberService, SitService sitService) {
+//        this.memberService = memberService;
+//        this.sitService = sitService;
 //    }
+
+
+//    @GetMapping("/test")
+//    public String layout() {
+//        return "layout/layout";
+//    }
+////    @GetMapping("/test2")
+////    public String test() {
+////        return "test";
+////    }
 
 
     @GetMapping("/")
@@ -76,6 +82,7 @@ public class MainController {
             }
         }
         List<Sit> sits = sitService.findAll();
+        sortSit(sits);
         model.addAttribute("sits", sits);
         return "reserve/reserve";
     }
@@ -83,13 +90,40 @@ public class MainController {
     @GetMapping("/reserve/price")
     public String price(@RequestParam(name = "num", required=false) String num, Model model, HttpServletRequest request) {
 
-        if(request.getSession(false) == null) {
+        Long id = Long.parseLong(num);
+
+
+        HttpSession session = request.getSession(false);
+        if(session == null) {
             model.addAttribute("msg", "로그인이 필요합니다");
             return "login/login";
         }
 
-        Member member = memberService.findById(7L);
-        Long id = Long.parseLong(num);
+        Member member = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
+        if(member == null) {
+            model.addAttribute("msg", "회원이 존재하지 않습니다");
+            return "login/join";
+        }
+        List<Sit> sits = sitService.findAll();
+
+        if( sitService.check_member(member, id)) {
+//            for(Sit sit : sits) {
+//                log.info("sit.getId() = {}", sit.getId());
+//            }
+            sortSit(sits);
+            for(Sit sit : sits) {
+                log.info("sort sit.getId() = {}", sit.getId());
+            }
+            model.addAttribute("sits", sits);
+
+            model.addAttribute("msg", "중복으로 예약이 되어있습니다.");
+
+            model.addAttribute("member", member);
+            return "reserve/reserve";
+        }
+
+        sitService.use(id, member);
+
 //        if(sitService.check_member(member)) {
 //            model.addAttribute("msg", "중복 예약 입니다.");
 //            return "reserve/reserve";
@@ -106,6 +140,15 @@ public class MainController {
         return "reserve/price";
     }
 
+    private void sortSit(List<Sit> sits) {
+        sits.sort(new Comparator<Sit>() {
+            @Override
+            public int compare(Sit o1, Sit o2) {
+                return (int) (o1.getId() - o2.getId());
+            }
+        });
+    }
+
     @GetMapping("/reserve/clear")
     public String clear(Model model) {
         sitService.clearAll();
@@ -114,8 +157,9 @@ public class MainController {
         return "redirect:/reserve";
     }
     @GetMapping("/reserve/clear/{id}")
-    public String clearOne(@PathVariable("id") Long id) {
-        Member member = memberService.findById(id);
+    public String clearOne(@PathVariable("id") String id) {
+
+        Member member = memberService.findById(Long.valueOf(id));
         sitService.clearOne(member);
         return "redirect:/reserve";
     }
@@ -204,7 +248,8 @@ public class MainController {
     }
 
     @GetMapping("/codetest")
-    public String makeQr(HttpServletRequest request) throws WriterException, IOException {
+    public String makeQr(HttpServletRequest request)
+            throws WriterException, IOException {
 
         int width = 150;
         int height = 150;
@@ -215,7 +260,8 @@ public class MainController {
             return "menu/home";
         }
 
-        Member member = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
+        Member member = (Member) session
+                .getAttribute(SessionConstants.LOGIN_MEMBER);
 
         if(member == null) {
             return "menu/home";

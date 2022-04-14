@@ -47,10 +47,21 @@ public class SitService {
 
     public List<Sit> findAll() {
         return sitRepository.findAll();
+
     }
 
-    public Boolean check_member(Member member) {
-        return null;
+    public Boolean check_member(Member member, Long id) {
+        List<Sit> result = sitRepository.findAll();
+        int count = 0;
+        for( Sit sit : result) {
+            if(sit.getMember() == member) {     //중복 예약했을 때
+                count++;
+                if(count >= 2)
+                    sitRepository.clearById(id);
+                    return true;
+            }
+        }
+        return false;
     }
     public Boolean check_sit(Long id) {
         return null;

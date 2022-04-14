@@ -12,7 +12,6 @@ import java.sql.SQLException;
 @Configuration
 public class Config {
 
-    @PersistenceContext
     private EntityManager em;
 
     public Config(EntityManager em) {
