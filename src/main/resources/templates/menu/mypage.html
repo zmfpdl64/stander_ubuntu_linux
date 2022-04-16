@@ -5,12 +5,60 @@
       lang="ko">
 
 <div layout:fragment="content">
-    <h1>마이페이지</h1>
-    <h1 th:if="${member}" th:text="${member.getUsername()}"></h1>
-    <img src="|/img/${member.getId()}/QR.png|">
+    <style>
+        .description {
+            width : auto;
+            padding : 50px;
+            border-radius: 40px;
+            margin:100px;
+            background-color:  #87CEEB;
+            text-align: center;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            border=radius: 5px;
+    </style>
+    <div class="row">
+        <div class="col-3">
+            <h1>마이페이지</h1>
+            <h1 th:if="${member}" th:text="${member.getUsername()}"></h1>
+
+        </div>
+        <div class="col-6">
+
+            <center>
+                <div class="description">
+                    <img th:src="|@{images/}${member.getId()}/QRCODE.jpg|">
+                    <br><br>
+                    <a role="button" class="btn btn-primary" style="float:center;width:100px; " th:text="입실하기"></a>
+                    <a role="button" class="btn btn-primary" style="float:center ;width:100px;" th:text="퇴실하기"></a>
+                </div>
+
+                <div>
+                    최근 이용 내역
+                    <div style="width: auto; height: 300px; background-color: gray; border-radius: 30px">
+                            <div style="width: 250px; height: 100px; background-color: white;display: flex; align-items: center; justify-content: center; vertical-align: middle;"></div>
+<!--                            <div style="display: block;top: 50px; margin-right: 20px; margin-left: 20px ;width: auto; height: 200px; background-color: white; border-radius: 30px">-->
+
+<!--                            </div>-->
+                    </div>
+
+                </div>
+
+            </center>
+
+
+
+        </div>
+        <div class="col-3">
+
+        </div>
+    </div>
+<!--    <img th:src="@{images/1/QRCODE.jpg}">-->
+<!--    <img th:src="@{/images/QRCODE.jpg}">-->
+
 
 <!--    <img th:src="|@{/img/QR.png}|">-->
-    <img th:src="|@{img/icon.png}|">
 <!--    <img th:src="|@{/img/}${member.getId()}/QR.png|" style="width: 200px; height:200px;">-->
 <!--    <img th:src="|/img/${member.getId()}/QR.png|" style="width: 200px; height:200px;">-->
 <!--    <img src="static/img/7/QR.png" style="width: 200px; height:200px;">-->

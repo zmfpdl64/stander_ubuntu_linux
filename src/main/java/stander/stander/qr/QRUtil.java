@@ -12,24 +12,26 @@ import java.io.File;
 
 public class QRUtil {
 
-    public static void makeQR(String url , int width , int height , String file_path , String file_name){
-        try{
-            File file = null;
+    public static void makeQR(String url, String path) {
+        try {
 
-            file = new File(file_path);
-            if(!file.exists()){
-                file.mkdirs();
-            }
             QRCodeWriter writer = new QRCodeWriter();
-            url = new String(url.getBytes("UTF-8") , "ISO-8859-1");
-            BitMatrix matrix = writer.encode(url, BarcodeFormat.QR_CODE, width, height);
-            //QR코드 색상
-            int qrColor = 0x00000000;
-            MatrixToImageConfig config = new MatrixToImageConfig(qrColor , 0xFFFFFFFF);
-            BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(matrix , config);
-            ImageIO.write(qrImage ,  "png" ,  new File(file_path+file_name));
+            url = new String(url.getBytes("UTF-8"), "ISO-8859-1");
+            BitMatrix matrix = writer.encode(url, BarcodeFormat.QR_CODE, 500, 500);
+
+            int qrColor = 0xff020202;
+            int backgroundColor = 0xFFFFFFFF;
+
+            MatrixToImageConfig config = new MatrixToImageConfig(qrColor, 0xFFFFFFFF);
+
+            BufferedImage image = new BufferedImage(10, 10, BufferedImage.TYPE_BYTE_BINARY);
+            BufferedImage qrimage = MatrixToImageWriter.toBufferedImage(matrix, config);
+
+
+            ImageIO.write(qrimage, "jpg", new File(path));
+
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.print(e.getMessage());
         }
     }
 }

@@ -1,6 +1,11 @@
 package stander.stander.controller;
 
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.MatrixToImageConfig;
+import com.google.zxing.client.j2se.MatrixToImageWriter;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,15 +24,15 @@ import stander.stander.service.MemberService;
 import stander.stander.service.SitService;
 import stander.stander.web.SessionConstants;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -269,15 +274,24 @@ public class MainController {
         String url = "http://localhost:8080/open/" + member.getId() ;
 
         String file_path = fileDir + member.getId()+"/";
-        String file_name = "QR.png";
-        QRUtil.makeQR(url , width , height , file_path , file_name);
+        String file_name = "QRCODE.jpg";
+        String full_path = file_path + file_name;
+        QRUtil.makeQR(url , full_path);
+
+
         return "qr/test";
     }
 
     @ResponseBody
-    @GetMapping("/img/{id}/QR.png")
-    public Resource downloadImage(@PathVariable String id) throws MalformedURLException {
-        return new UrlResource("file:" + fileDir + id+"/QR.png");
+    @GetMapping("/image/{id}")
+    public Resource downloadImage(@PathVariable(name = "id") String id) throws
+            MalformedURLException {
+        String full_path = "file:///" + fileDir + id + "/QRCODE.jpg";
+        log.info("file_path={}", full_path);
+//        return new UrlResource("file:C:/images/volley.png");
+//        return new UrlResource("file:///C:images/QRCODE.jpg");
+        return new UrlResource(full_path);
     }
+
 
 }

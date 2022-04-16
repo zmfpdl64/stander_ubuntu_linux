@@ -1,7 +1,10 @@
 package stander.stander.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import stander.stander.repository.JpaRepository;
 import stander.stander.repository.JpaSitRepository;
 
@@ -10,7 +13,10 @@ import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
 
 @Configuration
-public class Config {
+public class Config implements WebMvcConfigurer {
+
+    @Value("${file.dir")
+    private String fileDir;
 
     private EntityManager em;
 
@@ -36,5 +42,13 @@ public class Config {
     @Bean
     public SitService sitService() throws SQLException {
         return new SitService(sitrepository());
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("file:///C:/images/");
+//                .addResourceLocations("file:D:\\대학교\\4학년\\STANDER\\STANDER_GIT\\stander\\src\\main\\resources\\static\\img/")
+
     }
 }

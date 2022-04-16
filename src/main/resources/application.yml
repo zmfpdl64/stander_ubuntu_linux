@@ -35,4 +35,4 @@ logging:
         type: trace
 
 file:
-  dir: C:/Users/82102/Documents/img/
+  dir: C:/images/
