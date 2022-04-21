@@ -2,8 +2,10 @@ package stander.stander.repository;
 
 import org.springframework.stereotype.Repository;
 import stander.stander.model.Entity.Member;
+import stander.stander.model.Entity.Seat;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,17 +30,16 @@ public class JpaRepository implements stander.stander.repository.Repository {
     }
 
     @Override
-    public Optional<Member> findByName(String name) {
-        List<Member> result = em.createQuery("select m from Member m where m.name = :name", Member.class)
-                .setParameter("name", name)
-                .getResultList();
+    public Optional<Member> findByUsername(String username) {
+        List<Member> result = em.createQuery("select m from Member m where m.username = :username", Member.class)
+                .setParameter("username", username).getResultList();
         return result.stream().findAny();
     }
 
     @Override
-    public Optional<Member> findByPasswd(String pswd) {
-        List<Member> result = em.createQuery("select m from Member m where m.password = :passwd", Member.class)
-                .setParameter("passwd", pswd).getResultList();
+    public Optional<Member> findByPasswd(String password) {
+        List<Member> result = em.createQuery("select m from Member m where m.password = :password", Member.class)
+                .setParameter("password", password).getResultList();
         return result.stream().findAny();
     }
 }

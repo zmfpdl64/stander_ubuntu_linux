@@ -21,29 +21,46 @@
     <div class="row">
         <div class="col-3">
             <h1>마이페이지</h1>
-            <h1 th:if="${member}" th:text="${member.getUsername()}"></h1>
+            <h1 th:if="${member}" th:text="|사용자: ${member.getUsername()}|"></h1>
 
         </div>
         <div class="col-6">
 
             <center>
                 <div class="description">
+                        <div style="width: 50%; text-align: center; height: 50px; margin: auto; display: flex; background-color: white; border-radius: 30px">
+                                <h1 style="padding-left: 50px" th:text="|남은 시간: 3시간 30분|"></h1>
+                        </div>
+                    <br><br>
                     <img th:src="|@{images/}${member.getId()}/QRCODE.jpg|">
                     <br><br>
                     <a role="button" class="btn btn-primary" style="float:center;width:100px; " th:text="입실하기"></a>
                     <a role="button" class="btn btn-primary" style="float:center ;width:100px;" th:text="퇴실하기"></a>
                 </div>
 
-                <div>
                     최근 이용 내역
-                    <div style="width: auto; height: 300px; background-color: gray; border-radius: 30px">
-                            <div style="width: 250px; height: 100px; background-color: white;display: flex; align-items: center; justify-content: center; vertical-align: middle;"></div>
-<!--                            <div style="display: block;top: 50px; margin-right: 20px; margin-left: 20px ;width: auto; height: 200px; background-color: white; border-radius: 30px">-->
+                    <div style="width: auto; display: flex ;height: 300px; background-color: #87CEEB; border-radius: 30px">
+<!--                        <div style="width:100vw; background-color: white ;height: 100vh; display: flex; align-items: center;">hello</div>-->
 
-<!--                            </div>-->
+                        <!--                            <div style="width: 250px; height: 100px; top: 50px ;background-color: white;display: flex; align-items: center; justify-content: center; vertical-align: middle;"></div>-->
+<!--                            <div style="top: 50px; display: flex ;margin-right: 20px; margin-left: 20px ;width: auto; height: 200px; background-color: white; border-radius: 30px"></div>-->
+                        <div style="width: 90% ; text-align: left;height: 200px;; margin: auto; background-color: white; border-radius: 30px">
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-10">
+                                    <h3>
+                                        2022-04-15일 3시 20분에 입실하셨습니다.
+                                    </h3>
+                                    <br>
+                                    <h3>
+                                        2022-04-15일 5시 30분에 퇴실하셨습니다.
+                                    </h3>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
 
-                </div>
 
             </center>
 

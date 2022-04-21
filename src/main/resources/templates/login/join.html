@@ -59,12 +59,9 @@
                     <legend>회원가입</legend>
                     <table>
                         <div id="div-id_tags_str">
-                            <label for="username">이름:</label>
-                            <input type="text" name="username" id="username" placeholder="이름" required="required"
-                                   style="width: 250px;" class="form-control">
-                            <br>
-                            <label for="name">아이디:</label>
-                            <input type="text" name="name" id="name" placeholder="아이디" required="required"
+
+                            <label for="username">아이디:</label>
+                            <input type="text" name="username" id="username" placeholder="아이디" required="required"
                                    class="form-control">
                             <br>
                             <label for="password">비밀번호:</label>
@@ -75,19 +72,17 @@
                             <input type="text" name="phonenum" placeholder="휴대폰 번호" required="required" id="phonenum"
                                    class="form-control">
                             <br>
-                            <div class="row">
-                                <label for="personnum_front">주민 번호:</label>
+                            <label for="gender">성별:</label>
+                            <input type="radio" name="gender" required="required" id="gender"
+                                   class="form-check-input">
+                                <label class="">남자</label>
+                            </input>
+                            <input type="radio" name="gender" required="required" id="gender"
+                                   class="form-check-input">
+                            <label class="form-check-label">여자</label>
+                            </input>
+                            <br>
 
-                                <div class="col-lg-4">
-
-                                    <input type="text" style="width:180px; margin-right:20px" name="personnum_front" placeholder="앞자리" required="required" id="personnum_front"
-                                           class="form-control">
-                                </div>
-                                <div class="col-lg-4">
-                                    <input type="password" style="width:180px; margin-left:20px" name="personnum_back" placeholder="뒷자리" required="required" id="personnum_back"
-                                           class="form-control">
-                                </div>
-                            </div>
 
 
                         </div>

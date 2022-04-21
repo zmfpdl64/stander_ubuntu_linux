@@ -48,7 +48,5 @@ public class Config implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/images/**")
                 .addResourceLocations("file:///C:/images/");
-//                .addResourceLocations("file:D:\\대학교\\4학년\\STANDER\\STANDER_GIT\\stander\\src\\main\\resources\\static\\img/")
-
     }
 }

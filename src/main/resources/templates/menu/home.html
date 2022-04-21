@@ -10,6 +10,12 @@
 <div layout:fragment="content">
     <h1>홈페이지</h1>
 <!--    <img th:src="/image">-->
+    <script th:inline="javascript">
+    var message = [[${msg}]];
+        if(message) {
+            alert(message);
+        }
+    </script>
 </div>
 
 </body>

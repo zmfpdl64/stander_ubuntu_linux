@@ -21,7 +21,7 @@ public class MemberService {
         repository.save(member);
     }
     private void validName(Member member) {
-        if(repository.findByName(member.getName()).isEmpty())
+        if(repository.findByUsername(member.getUsername()).isEmpty())
         {
             throw new IllegalStateException("이름이 중복됩니다.");
         }
@@ -30,9 +30,9 @@ public class MemberService {
     public Member login(LoginForm loginForm) {
 //        Member member = repository.findById(7L);
 //        System.out.println(member.getName() + member.getPassword());
-        Member member = repository.findByName(loginForm.getName()).orElse(null);
+        Member member = repository.findByUsername(loginForm.getName()).orElse(null);
         if( member != null) {
-            if(loginForm.getName().equals(member.getName()) && loginForm.getPassword().equals(member.getPassword())) {
+            if(loginForm.getName().equals(member.getUsername()) && loginForm.getPassword().equals(member.getPassword())) {
                 System.out.println("로그인 성공했습니다.");
                 return member;
             }
