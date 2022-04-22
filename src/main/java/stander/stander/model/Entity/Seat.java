@@ -18,6 +18,8 @@ public class Seat {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    private Boolean present_use;
+
     private Date check_in;
     private Date check_out;
 

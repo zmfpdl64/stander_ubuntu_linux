@@ -47,9 +47,9 @@ public class ReserveController {
             model.addAttribute("msg", "세션이 없습니다");
             return "menu/home";
         }
-        List<Seat> sits = sitService.findAll();
-        sortSit(sits);
-        model.addAttribute("sits", sits);
+//        List<Seat> sits = sitService.findAll();
+//        sortSit(sits);
+//        model.addAttribute("sits", sits);
         return "reserve/reserve";
     }
 
@@ -72,7 +72,7 @@ public class ReserveController {
         }
         List<Seat> sits = sitService.findAll();
 
-        if( sitService.check_member(member, id)) {
+        if( sits != null ) {
 //            for(Sit sit : sits) {
 //                log.info("sit.getId() = {}", sit.getId());
 //            }

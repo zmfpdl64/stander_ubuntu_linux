@@ -45,8 +45,7 @@ public class JpaSitRepository implements SitRepository {
     }
 
     public List<Seat> findUseMember() {     //좌석이 이용되고 있으면 반환된다.
-        List<Seat> result = em.createQuery("select m from Seat m where m.member ! :member", Seat.class)
-                .setParameter("member", null)
+        List<Seat> result = em.createQuery("select m from Seat m where m.member is not null", Seat.class)
                 .getResultList();
         if (result.isEmpty()) {
             return null;
@@ -92,7 +91,10 @@ public class JpaSitRepository implements SitRepository {
 
     @Override
     public List<Seat> findAll() {
-        List<Seat> result = em.createQuery("select m from Sit m", Seat.class).getResultList();
+        List<Seat> result = em.createQuery("select m from Seat m", Seat.class).getResultList();
+        if (result.isEmpty()) {
+            return null;
+        }
         return result;
     }
 }
