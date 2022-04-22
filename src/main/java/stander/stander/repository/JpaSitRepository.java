@@ -21,14 +21,15 @@ public class JpaSitRepository implements SitRepository {
 
     @Override
     public Seat save(Seat seat) {
-        Seat findSeat = findById(seat.getId());
-        if(findSeat == null) {
-            em.persist(seat);
-        }
-        else{
-            seat.setMember(null);
-            em.merge(seat);
-        }
+//        Seat findSeat = findById(seat.getId()); //아직 db에 저장하지 않아 id값이 생성이 안됐다.
+//        if(findSeat == null) {
+//            em.persist(seat);
+//        }
+//        else{
+//            seat.setMember(null);
+//            em.merge(seat);
+//        }
+        em.persist(seat);
         return seat;
     }
 

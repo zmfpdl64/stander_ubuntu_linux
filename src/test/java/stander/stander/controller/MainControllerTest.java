@@ -92,7 +92,7 @@ class MainControllerTest {
         Long id = 10L;
         sitService.use(id, member);
 
-        if (sitService.check_member(member, id)) {
+        if (sitService.check_member(member)) {
             List<Seat> sits = sitService.findAll();
             for (Seat sit : sits) {
                 log.info("sit.getId() = {}", sit.getId());

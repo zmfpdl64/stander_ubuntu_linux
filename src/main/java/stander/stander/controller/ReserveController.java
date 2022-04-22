@@ -4,10 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import stander.stander.model.Entity.Member;
 import stander.stander.model.Entity.Seat;
 import stander.stander.service.MemberService;
@@ -17,6 +14,7 @@ import stander.stander.web.SessionConstants;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -47,9 +45,7 @@ public class ReserveController {
             model.addAttribute("msg", "세션이 없습니다");
             return "menu/home";
         }
-//        List<Seat> sits = sitService.findAll();
-//        sortSit(sits);
-//        model.addAttribute("sits", sits);
+
         return "reserve/reserve";
     }
 
@@ -72,10 +68,8 @@ public class ReserveController {
         }
         List<Seat> sits = sitService.findAll();
 
-        if( sits != null ) {
-//            for(Sit sit : sits) {
-//                log.info("sit.getId() = {}", sit.getId());
-//            }
+        if( sits != null && !sitService.check_member(member) ) {
+
             sortSit(sits);
             for(Seat sit : sits) {
                 log.info("sort sit.getId() = {}", sit.getId());
@@ -87,8 +81,13 @@ public class ReserveController {
             model.addAttribute("member", member);
             return "reserve/reserve";
         }
+        Seat seat = new Seat();
+        seat.setMember(member);
+        seat.setSeat_num(String.valueOf(id));
+        seat.setPresent_use(true);
+        seat.setCheck_in(new Date());
+        sitService.save(seat);
 
-        sitService.use(id, member);
 
 //        if(sitService.check_member(member)) {
 //            model.addAttribute("msg", "중복 예약 입니다.");
@@ -100,7 +99,6 @@ public class ReserveController {
 //            return "reserve/reserve";
 //        }
 
-        sitService.use(id, member);
         model.addAttribute("num", num);
         model.addAttribute("member", member);
         return "reserve/price";
@@ -113,6 +111,24 @@ public class ReserveController {
                 return (int) (o1.getId() - o2.getId());
             }
         });
+    }
+
+    @PostMapping("/price")
+    public String price_post(@RequestParam(name = "num", required=false) String num, Model model, HttpServletRequest request) {
+
+        HttpSession session = request.getSession(false);
+        if(session == null) {
+            model.addAttribute("msg", "로그인이 필요합니다");
+            return "login/login";
+        }
+
+        Member member = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
+        if(member == null) {
+            model.addAttribute("msg", "회원이 존재하지 않습니다");
+            return "login/join";
+        }
+
+        return "menu/mypage";
     }
 
     @GetMapping("/clear")

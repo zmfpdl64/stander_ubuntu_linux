@@ -50,15 +50,11 @@ public class SeatService {
 
     }
 
-    public Boolean check_member(Member member, Long id) {
+    public Boolean check_member(Member member) {
         List<Seat> result = sitRepository.findAll();
-        int count = 0;
         for( Seat seat : result) {
             if(seat.getMember() == member) {     //중복 예약했을 때
-                count++;
-                if(count >= 2)
-                    sitRepository.clearById(id);
-                    return true;
+                return true;
             }
         }
         return false;
