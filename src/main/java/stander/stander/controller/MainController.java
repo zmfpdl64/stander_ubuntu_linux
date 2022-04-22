@@ -1,24 +1,18 @@
 package stander.stander.controller;
 
-import com.google.zxing.WriterException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import stander.stander.model.Entity.Member;
-import stander.stander.qr.QRUtil;
 import stander.stander.service.MemberService;
-import stander.stander.service.SitService;
+import stander.stander.service.SeatService;
 import stander.stander.web.SessionConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.net.MalformedURLException;
 
 @Controller
 @Slf4j
@@ -27,7 +21,7 @@ public class MainController {
     @Autowired
     private MemberService memberService;
     @Autowired
-    private SitService sitService;
+    private SeatService sitService;
 
     @Value("${file.dir}")
     private String fileDir;

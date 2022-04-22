@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import stander.stander.model.Entity.Member;
 import stander.stander.model.Entity.Seat;
 import stander.stander.service.MemberService;
-import stander.stander.service.SitService;
+import stander.stander.service.SeatService;
 
 import java.util.Comparator;
 import java.util.List;
@@ -33,7 +33,7 @@ class MainControllerTest {
     @Autowired
     MemberService memberService;
     @Autowired
-    SitService sitService;
+    SeatService sitService;
 
     @Test
     @Rollback(false)
@@ -67,7 +67,7 @@ class MainControllerTest {
 //        }
         Seat sit1 = new Seat();
 
-        sitService.set(sit1);
+        sitService.save(sit1);
 
         sitService.use(1L, member);
         Seat sit = sitService.findMember(member);

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import stander.stander.model.Entity.Member;
 import stander.stander.model.Entity.Seat;
 import stander.stander.service.MemberService;
-import stander.stander.service.SitService;
+import stander.stander.service.SeatService;
 import stander.stander.web.SessionConstants;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +26,7 @@ public class ReserveController {
     @Autowired
     private MemberService memberService;
     @Autowired
-    private SitService sitService;
+    private SeatService sitService;
 
 
     @GetMapping
@@ -134,7 +134,7 @@ public class ReserveController {
     public void reserve() {
         for(int i = 0; i < 30; i++) {
             Seat sit = new Seat();
-            sitService.set(sit);
+            sitService.save(sit);
         }
     } //db에 좌석 생성
 }

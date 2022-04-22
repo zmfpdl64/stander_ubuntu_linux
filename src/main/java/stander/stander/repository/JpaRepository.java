@@ -42,4 +42,10 @@ public class JpaRepository implements stander.stander.repository.Repository {
                 .setParameter("password", password).getResultList();
         return result.stream().findAny();
     }
+
+    public List<Member> findAll(String username) {
+        List<Member> result = em.createQuery("select m from Member m", Member.class).getResultList();
+
+        return result;
+    }
 }

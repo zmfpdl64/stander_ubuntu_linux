@@ -30,9 +30,9 @@ public class MemberService {
     public Member login(LoginForm loginForm) {
 //        Member member = repository.findById(7L);
 //        System.out.println(member.getName() + member.getPassword());
-        Member member = repository.findByUsername(loginForm.getName()).orElse(null);
+        Member member = repository.findByUsername(loginForm.getUsername()).orElse(null);
         if( member != null) {
-            if(loginForm.getName().equals(member.getUsername()) && loginForm.getPassword().equals(member.getPassword())) {
+            if(loginForm.getUsername().equals(member.getUsername()) && loginForm.getPassword().equals(member.getPassword())) {
                 System.out.println("로그인 성공했습니다.");
                 return member;
             }

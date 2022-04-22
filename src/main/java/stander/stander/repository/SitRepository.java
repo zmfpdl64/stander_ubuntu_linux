@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SitRepository {
 
-    Seat set(Seat sit);
+    Seat save(Seat sit);
     Seat findByMember(Member member);
     Seat findById(Long id);
     Seat merge(Long id, Member member);

@@ -9,7 +9,6 @@ import stander.stander.repository.JpaRepository;
 import stander.stander.repository.JpaSitRepository;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.sql.SQLException;
 
 @Configuration
@@ -40,8 +39,8 @@ public class Config implements WebMvcConfigurer {
     }
 
     @Bean
-    public SitService sitService() throws SQLException {
-        return new SitService(sitrepository());
+    public SeatService sitService() throws SQLException {
+        return new SeatService(sitrepository());
     }
 
     @Override

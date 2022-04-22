@@ -13,7 +13,7 @@ import stander.stander.model.Entity.Member;
 import stander.stander.model.Form.LoginForm;
 import stander.stander.model.Form.MemberForm;
 import stander.stander.service.MemberService;
-import stander.stander.service.SitService;
+import stander.stander.service.SeatService;
 import stander.stander.web.SessionConstants;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +28,7 @@ public class LoginController {
     @Autowired
     private MemberService memberService;
     @Autowired
-    private SitService sitService;
+    private SeatService seatService;
 
 
     @GetMapping

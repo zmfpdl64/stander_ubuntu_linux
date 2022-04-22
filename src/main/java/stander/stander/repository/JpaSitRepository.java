@@ -20,45 +20,63 @@ public class JpaSitRepository implements SitRepository {
     }
 
     @Override
-    public Seat set(Seat sit) {
-        em.persist(sit);
-        return sit;
+    public Seat save(Seat seat) {
+        Seat findSeat = findById(seat.getId());
+        if(findSeat == null) {
+            em.persist(seat);
+        }
+        else{
+            seat.setMember(null);
+            em.merge(seat);
+        }
+        return seat;
     }
 
     @Override
     public Seat findByMember(Member member) {
-        TypedQuery<Seat> sitQuery = em.createQuery("select m from Sit m where m.member = :member", Seat.class)
-                .setParameter("member", member);
-        List<Seat> result = sitQuery.getResultList();
+        List<Seat> result = em.createQuery("select m from Seat m where m.member = :member", Seat.class)
+                .setParameter("member", member)
+                .getResultList();
         if (result.size() != 0) {
-            Seat sit = result.get(0);
-            return sit;
+            Seat seat = result.get(0);
+            return seat;
         }
         return null;
     }
 
+    public List<Seat> findUseMember() {     //좌석이 이용되고 있으면 반환된다.
+        List<Seat> result = em.createQuery("select m from Seat m where m.member ! :member", Seat.class)
+                .setParameter("member", null)
+                .getResultList();
+        if (result.isEmpty()) {
+            return null;
+        }
+        return result;
+    }
+
     @Override
     public Seat findById(Long id) {
-        Seat sit = em.find(Seat.class, id);
-        return sit;
+        Seat seat = em.find(Seat.class, id);
+        return seat;
     }
 
     public Seat clearById(Long id) {
-        Seat sit = em.find(Seat.class, id);
-        sit.setMember(null);
-        em.merge(sit);
-        return sit;
+        Seat seat = em.find(Seat.class, id);
+        seat.setMember(null);
+        em.merge(seat);
+        return seat;
     }
+
 
     @Override
     public Seat merge(Long id, Member member) {
-        Seat sit = em.find(Seat.class, id);
-        sit.setMember(member);
+        Seat seat = em.find(Seat.class, id);
+        seat.setMember(member);
         log.info("Member Id={}", member.getId());
-        log.info("Sit Id={}", sit.getId());
-        Seat mergeSeat = em.merge(sit);
+        log.info("Sit Id={}", seat.getId());
+        Seat mergeSeat = em.merge(seat);
 
-        return sit;
+        return seat;
     }
 
     @Override

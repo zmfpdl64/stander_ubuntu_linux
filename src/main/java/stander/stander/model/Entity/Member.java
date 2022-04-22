@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -17,6 +18,8 @@ public class Member {
     private Long id;
     private String username;
     private String password;
+
+    @Email
     private String email;
     private String gender;
     private Long age;
