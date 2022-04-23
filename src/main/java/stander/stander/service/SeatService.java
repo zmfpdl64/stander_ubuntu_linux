@@ -1,12 +1,16 @@
 package stander.stander.service;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 import stander.stander.model.Entity.Member;
 import stander.stander.model.Entity.Seat;
 import stander.stander.repository.JpaSitRepository;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
+@Slf4j
 @Transactional
 public class SeatService {
 
@@ -24,14 +28,20 @@ public class SeatService {
         sitRepository.merge(id, member);
     }
 
-    public void clearOne(Member member) {
-        Seat seat = sitRepository.findByMember(member);
-        seat.setMember(null);
+    public Seat clearOne(Member member) {
+        List<Seat> result = sitRepository.findUseMember();
+        if( result == null) return null;
+        for(Seat seat : result) {
+            if(seat.getMember().getId().equals(member.getId())) {
+                seat.setPresent_use(false);
+            }
+        }
+        return null;
     }
     public void clearAll() {
         List<Seat> result = sitRepository.findAll();
         for(Seat seat : result) {
-            seat.setMember(null);
+            seat.setPresent_use(false);
         }
     }
 
@@ -45,22 +55,38 @@ public class SeatService {
         return seat;
     }
 
+    public List<Seat> findUseSeat() {
+        List<Seat> result = sitRepository.findUseMember();
+        if(result == null) return null;
+        else return result;
+    }
+
     public List<Seat> findAll() {
         return sitRepository.findAll();
 
     }
 
     public Boolean check_member(Member member) {
-        List<Seat> result = sitRepository.findAll();
+        List<Seat> result = sitRepository.findUseMember();
+        if(result == null) return false;
         for( Seat seat : result) {
-            if(seat.getMember() == member) {     //중복 예약했을 때
+            log.info("getMember/{} = {}/ {} / getPresent_use = {}",member, seat.getMember(), Objects.equals(member, seat.getMember()), seat.getPresent_use());
+            log.info("username = {} / seat.username = {}", member.getUsername(), seat.getMember().getUsername());
+            //db에서 객체를 저장하고 불러오는 과정에서 새롭게 객체를 만들어 아마 다른 객체라고 인식하는것 같다.
+            if(seat.getMember().getId().equals(member.getId())  && seat.getPresent_use()) {     //중복 예약했을 때
                 return true;
             }
         }
         return false;
     }
-    public Boolean check_sit(Long id) {
-        return null;
+    public Boolean check_sit(Long id) { //좌석이 이미 예약 되어 있으면 true 반환
+        List<Seat> result = sitRepository.findUseMember();
+        for(Seat seat : result) {
+            if(seat.getSeat_num().equals(String.valueOf(id))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void use() {

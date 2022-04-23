@@ -32,7 +32,7 @@
                                 <h1 style="padding-left: 50px" th:text="|남은 시간: 3시간 30분|"></h1>
                         </div>
                     <br><br>
-                    <img th:src="|@{images/}${member.getId()}/QRCODE.jpg|">
+                    <img th:if="|${member.getQr()}|" th:src="|@{images/}${member.getId()}/QRCODE.jpg|">
                     <br><br>
                     <a role="button" class="btn btn-primary" style="float:center;width:100px; " th:text="입실하기"></a>
                     <a role="button" class="btn btn-primary" style="float:center ;width:100px;" th:text="퇴실하기"></a>
