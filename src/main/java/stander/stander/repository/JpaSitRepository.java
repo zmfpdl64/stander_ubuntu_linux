@@ -6,7 +6,6 @@ import stander.stander.model.Entity.Member;
 import stander.stander.model.Entity.Seat;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Slf4j
@@ -45,7 +44,17 @@ public class JpaSitRepository implements SitRepository {
         return null;
     }
 
-    public List<Seat> findUseMember() {     //좌석이 이용되고 있으면 반환된다.
+    public List<Seat> findByMembers(Member member) {
+        List<Seat> result = em.createQuery("select m from Seat m where m.member = :member order by m.check_in desc", Seat.class)
+                .setParameter("member", member)
+                .setFirstResult(0)
+                .setMaxResults(2)
+                .getResultList();
+        if( result == null) return null;
+        return result;
+    }
+
+    public List<Seat> findUseSeat() {     //좌석이 이용되고 있으면 반환된다.
         List<Seat> result = em.createQuery("select m from Seat m where m.present_use = :present_use", Seat.class)
                 .setParameter("present_use", true)
                 .getResultList();

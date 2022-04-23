@@ -6,9 +6,9 @@ import stander.stander.model.Entity.Member;
 import stander.stander.model.Entity.Seat;
 import stander.stander.repository.JpaSitRepository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Slf4j
 @Transactional
@@ -29,11 +29,12 @@ public class SeatService {
     }
 
     public Seat clearOne(Member member) {
-        List<Seat> result = sitRepository.findUseMember();
+        List<Seat> result = sitRepository.findUseSeat();
         if( result == null) return null;
         for(Seat seat : result) {
             if(seat.getMember().getId().equals(member.getId())) {
                 seat.setPresent_use(false);
+                seat.setCheck_out(new Date());
             }
         }
         return null;
@@ -50,13 +51,19 @@ public class SeatService {
         return seat;
     }
 
+    public List<Seat> find_Usage_History(Member member) {
+        List<Seat> result = sitRepository.findByMembers(member);
+        if(result == null) return null;
+        return result;
+    }
+
     public Seat findById(Long id) {
         Seat seat = sitRepository.findById(id);
         return seat;
     }
 
     public List<Seat> findUseSeat() {
-        List<Seat> result = sitRepository.findUseMember();
+        List<Seat> result = sitRepository.findUseSeat();
         if(result == null) return null;
         else return result;
     }
@@ -67,7 +74,7 @@ public class SeatService {
     }
 
     public Boolean check_member(Member member) {
-        List<Seat> result = sitRepository.findUseMember();
+        List<Seat> result = sitRepository.findUseSeat();
         if(result == null) return false;
         for( Seat seat : result) {
             log.info("getMember/{} = {}/ {} / getPresent_use = {}",member, seat.getMember(), Objects.equals(member, seat.getMember()), seat.getPresent_use());
@@ -80,7 +87,7 @@ public class SeatService {
         return false;
     }
     public Boolean check_sit(Long id) { //좌석이 이미 예약 되어 있으면 true 반환
-        List<Seat> result = sitRepository.findUseMember();
+        List<Seat> result = sitRepository.findUseSeat();
         for(Seat seat : result) {
             if(seat.getSeat_num().equals(String.valueOf(id))) {
                 return true;

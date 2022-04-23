@@ -58,15 +58,17 @@ public class ReserveController {
             int hour = time % (60 * 60 * 24) /(60 * 60)  ;
             int minute = time % (60 * 60) / 60;
             int second = time % 60;
-
-            String left_time = day + "일 "+ hour + "시간 " + minute + "분" ;
+            String user_name = seat.getMember().getUsername();
+            String left_time =user_name + "<br/>" + day + "일 "+ hour + "시간 " + minute + "분" ;
+            System.out.println(left_time);
             model.addAttribute("sit" + seat.getSeat_num(), left_time);
         }
         return "reserve/reserve";
     }
 
     @GetMapping("/price")
-    public String price(@RequestParam(name = "num", required=false) String num, Model model, HttpServletRequest request) {
+    public String price(@RequestParam(name = "num", required=false) String num, Model model, HttpServletRequest request
+    , RedirectAttributes redirectAttributes) {
 
         Long id = Long.parseLong(num);
 
@@ -90,18 +92,19 @@ public class ReserveController {
 
             model.addAttribute("sits", sits);
 
-            model.addAttribute("msg", "중복으로 예약이 되어있습니다.");
 
             model.addAttribute("member", member);
-            return "reserve/reserve";
+            redirectAttributes.addFlashAttribute("msg", "중복으로 예약이 되어있습니다.");
+            return "redirect:/reserve";
         }
 
         if(sitService.check_sit(id)) {
             sortSit(sits);
             model.addAttribute("sits", sits);
             model.addAttribute("member", member);
-            model.addAttribute("msg", "좌석이 이미 예약되어 있습니다");
-            return "reserve/reserve";
+            redirectAttributes.addFlashAttribute("msg", "좌석이 이미 예약되어 있습니다");
+
+            return "redirect:/reserve";
         }
 
         Seat seat = new Seat();
@@ -177,6 +180,7 @@ public class ReserveController {
         }
 
         sitService.clearOne(member);
+
         return "redirect:/reserve";
     }
 
