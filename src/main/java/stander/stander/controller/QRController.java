@@ -65,8 +65,8 @@ public class QRController {
 //            MalformedURLException {
 //        String full_path = "file:///" + fileDir + id + "/QRCODE.jpg";
 //        log.info("file_path={}", full_path);
-////        return new UrlResource("file:C:/images/volley.png");
-////        return new UrlResource("file:///C:images/QRCODE.jpg");
-//        return new UrlResource(full_path);
-//    }
+////
+//    }     return new UrlResource("file:C:/images/volley.png");
+//////        return new UrlResource("file:///C:images/QRCODE.jpg");
+////        return new UrlResource(full_path);
 }

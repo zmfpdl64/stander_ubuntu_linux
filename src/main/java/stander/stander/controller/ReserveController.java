@@ -2,12 +2,14 @@ package stander.stander.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import stander.stander.model.Entity.Member;
 import stander.stander.model.Entity.Seat;
+import stander.stander.qr.QRUtil;
 import stander.stander.service.MemberService;
 import stander.stander.service.SeatService;
 import stander.stander.web.SessionConstants;
@@ -27,39 +29,39 @@ public class ReserveController {
     @Autowired
     private SeatService sitService;
 
+    @Value("${file.dir}")
+    private String fileDir;
 
     @GetMapping
     public String reserve(Model model, HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
-        if(session != null) {
+        if (session != null) {
             Member member = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
-            if(member != null) {
+            if (member != null) {
                 model.addAttribute("member", member);
-            }
-            else{
+            } else {
                 model.addAttribute("msg", "회원정보가 없습니다");
                 return "menu/home";
             }
-        }
-        else {
+        } else {
             model.addAttribute("msg", "세션이 없습니다");
             return "menu/home";
         }
 
         List<Seat> result = sitService.findUseSeat();
-        if(result == null) {
+        if (result == null) {
             return "reserve/reserve";
         }
 
-        for(Seat seat : result) {
+        for (Seat seat : result) {
             int time = seat.getMember().getTime();
             int day = time / (60 * 60 * 24);  // day *
-            int hour = time % (60 * 60 * 24) /(60 * 60)  ;
+            int hour = time % (60 * 60 * 24) / (60 * 60);
             int minute = time % (60 * 60) / 60;
             int second = time % 60;
             String user_name = seat.getMember().getUsername();
-            String left_time =user_name + "<br/>" + day + "일 "+ hour + "시간 " + minute + "분" ;
+            String left_time = user_name + "<br/>" + day + "일 " + hour + "시간 " + minute + "분";
             System.out.println(left_time);
             model.addAttribute("sit" + seat.getSeat_num(), left_time);
         }
@@ -107,6 +109,16 @@ public class ReserveController {
             return "redirect:/reserve";
         }
 
+        String url = "http://localhost:8080/open/" + member.getId();
+
+        String file_path = fileDir + member.getId() + "/";
+        String file_name = "QRCODE.jpg";
+        String full_path = file_path + file_name;
+        QRUtil.makeQR(url, full_path);
+
+        member.setQr(url);
+        memberService.modify(member);
+
         Seat seat = new Seat();
         seat.setMember(member);
         seat.setSeat_num(String.valueOf(id));
@@ -115,19 +127,16 @@ public class ReserveController {
         sitService.save(seat);
 
 
-//        if(sitService.check_member(member)) {
-//            model.addAttribute("msg", "중복 예약 입니다.");
-//            return "reserve/reserve";
-//        }
-//
-//        if(sitService.check_sit(id)) {
-//            model.addAttribute("msg", "좌석이 이미 예약 되어 있습니다.");
-//            return "reserve/reserve";
-//        }
 
-        model.addAttribute("num", num);
-        model.addAttribute("member", member);
-        return "reserve/price";
+        if(member.getTime() == 0) {
+            model.addAttribute("msg", "시간 충전이 필요합니다");
+            model.addAttribute("num", num);
+            model.addAttribute("member", member);
+            return "reserve/price";
+        }
+        redirectAttributes.addFlashAttribute("msg", "예약이 완료되었습니다");
+
+        return "redirect:/mypage";
     }
 
     private void sortSit(List<Seat> sits) {
@@ -162,10 +171,12 @@ public class ReserveController {
         sitService.clearAll();
 //        List<Sit> sits = sitService.findAll();
 //        model.addAttribute("sits", sits);
+        model.addAttribute("msg", "전체 퇴실이 완료 되었습니다.");
+
         return "redirect:/reserve";
     }
     @GetMapping("/clear/{id}")
-    public String clearOne(@PathVariable("id") String id, HttpServletRequest request, Model model) {
+    public String clearOne(@PathVariable("id") String id, HttpServletRequest request, Model model, RedirectAttributes redirectAttributes) {
 
         HttpSession session = request.getSession(false);
         if(session == null) {
@@ -178,6 +189,9 @@ public class ReserveController {
             model.addAttribute("msg", "회원이 존재하지 않습니다");
             return "login/join";
         }
+        redirectAttributes.addFlashAttribute("msg", "퇴실이 완료 되었습니다.");
+        member.setQr(null);
+        memberService.modify(member);
 
         sitService.clearOne(member);
 
