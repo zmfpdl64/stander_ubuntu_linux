@@ -19,7 +19,15 @@ public class JpaRepository implements stander.stander.repository.Repository {
     }
 
     public Member save(Member member) {
-        em.persist(member);
+        if(em.find(Member.class, member) == null)
+            em.persist(member);
+        else
+            em.merge(member);
+        return member;
+    }
+
+    public Member merge(Member member) {
+        em.merge(member);
         return member;
     }
 

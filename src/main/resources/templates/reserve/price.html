@@ -32,14 +32,14 @@
         <br><br><br><br>
         <div class="col-4">
             <h5 >실시간권</h5>
-            <button class="btn1" >15분당 300원</button>
+            <button class="btn1 900" >15분당 300원</button>
 
         </div>
         <div class="col-4">
             <h5>시간권</h5>
-            <button class="btn1" >3시간권 3,000원</button>
-            <button class="btn1">6시간권 5,000원</button>
-            <button class="btn1">12시간권 9,000원</button>
+            <button class="btn1 10800" >3시간권 3,000원</button>
+            <button class="btn1 21600">6시간권 5,000원</button>
+            <button class="btn1 43200">12시간권 9,000원</button>
 
 
         </div>
@@ -49,7 +49,7 @@
             <button class="btn1">1주일 무제한 30,000원</button>
             <button class="btn1">30일 무제한 11,000원</button>
             <br><br><br><br>
-            <a class="btn btn-primary">결제하기</a>
+            <a class="btn btn-primary sub">결제하기</a>
             <a role="button" class="btn btn-primary" style=" margin-left:20px" href="/reserve/clear">뒤로가기</a>
         </div>
 <!--        <div class="col-1">-->
@@ -62,7 +62,7 @@
       function postValue(event) {
       for(var i = 0; i < div2.length; i++) {
       if(div2[i].classList[2] === "clicked") {
-            location.href="/reserve/price?num="+div2[i].classList[1];
+            location.href="/mypage?time="+div2[i].classList[1];
       }}}
 
       function handleClick(event) {
@@ -94,5 +94,6 @@
       init();
 </script>
     </div>
+</div>
 
 </html>

@@ -88,6 +88,7 @@ public class SeatService {
     }
     public Boolean check_sit(Long id) { //좌석이 이미 예약 되어 있으면 true 반환
         List<Seat> result = sitRepository.findUseSeat();
+        if(result == null) return false;
         for(Seat seat : result) {
             if(seat.getSeat_num().equals(String.valueOf(id))) {
                 return true;

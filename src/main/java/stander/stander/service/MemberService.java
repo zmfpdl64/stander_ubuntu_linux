@@ -3,15 +3,16 @@ package stander.stander.service;
 import org.springframework.transaction.annotation.Transactional;
 import stander.stander.model.Form.LoginForm;
 import stander.stander.model.Entity.Member;
+import stander.stander.repository.JpaRepository;
 import stander.stander.repository.Repository;
 
 @Transactional
 public class MemberService {
 
-    private Repository repository;
+    private JpaRepository repository;
 
 
-    public MemberService(Repository repository) {
+    public MemberService(JpaRepository repository) {
         this.repository = repository;
     }
 
@@ -19,6 +20,10 @@ public class MemberService {
 //        validName(member);
 
         repository.save(member);
+    }
+
+    public void modify(Member member) {
+        repository.merge(member);
     }
     private void validName(Member member) {
         if(repository.findByUsername(member.getUsername()).isEmpty())

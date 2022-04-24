@@ -31,8 +31,8 @@ logging:
   level:
     org:
       hibernate:
-        SQL: debug
-        type: trace
+#        SQL: debug
+        type: info
 
 file:
   dir: C:/images/

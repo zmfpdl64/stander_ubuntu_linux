@@ -17,6 +17,9 @@ import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 
 @Controller
 @Slf4j
@@ -47,7 +50,7 @@ public class MainController {
 
 
     @GetMapping("/")
-    public String home(HttpServletRequest request, Model model)  {
+    public String home(HttpServletRequest request, Model model) {
 
 //        log.info("hello");
         return "menu/home";
@@ -65,36 +68,48 @@ public class MainController {
     }
 
     @GetMapping("/mypage")
-    public String mypage(HttpServletRequest request, Model model) {
+    public String mypage(@RequestParam(name = "time", required = false) String payment_time ,HttpServletRequest request, Model model) {
         HttpSession session = request.getSession(false);
-        if(session == null) {
+        if (session == null) {
+            model.addAttribute("msg", "로그인이 필요합니다");
+
             return "menu/home";
         }
         Member member = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
 
-        if(member == null) {
+        if (member == null) {
+            model.addAttribute("msg", "회원이 존재하지 않습니다");
+
             return "menu/home";
         }
 
         List<Seat> same_Member = sitService.find_Usage_History(member);
         SimpleDateFormat simple = new SimpleDateFormat("yyyy년 MM월 dd일 a HH시 mm분");
         List<String> usage_histories = new ArrayList<>();
-        for(Seat seat: same_Member) {
-            if(seat.getCheck_in() != null) {
+        for (Seat seat : same_Member) {
+            if (seat.getCheck_in() != null) {
                 usage_histories.add(simple.format(seat.getCheck_in()) + " 입실하셨습니다.");
             }
-            if(seat.getCheck_out() != null) {
+            if (seat.getCheck_out() != null) {
                 usage_histories.add(simple.format(seat.getCheck_out()) + " 퇴실하셨습니다.");
             }
         }
+        if(payment_time != null) {
+            member.setTime(member.getTime() + Integer.parseInt(payment_time));
+            memberService.modify(member);
+            log.info("member.getTime() = {}", member.getTime() + Integer.parseInt(payment_time));
+            model.addAttribute("msg", "결제 되었습니다.");
+        }
 
-        int time =member.getTime();
+
+
+        int time = member.getTime();
         int day = time / (60 * 60 * 24);  // day *
-        int hour = time % (60 * 60 * 24) /(60 * 60)  ;
+        int hour = time % (60 * 60 * 24) / (60 * 60);
         int minute = time % (60 * 60) / 60;
         int second = time % 60;
         String user_name = member.getUsername();
-        String left_time = day + "일 "+ hour + "시간 " + minute + "분" ;
+        String left_time = day + "일 " + hour + "시간 " + minute + "분";
 
         model.addAttribute("member", member);
         model.addAttribute("usage_histories", usage_histories);
@@ -102,8 +117,5 @@ public class MainController {
 
         return "menu/mypage";
     }
-
-
-
 
 }
