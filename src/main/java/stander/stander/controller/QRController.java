@@ -53,7 +53,7 @@ public class QRController {
         String file_path = fileDir + member.getId() + "/";
         String file_name = "QRCODE.jpg";
         String full_path = file_path + file_name;
-        QRUtil.makeQR(url, full_path);
+        QRUtil.makeQR(url, file_path, file_name);
 
 
         return "qr/test";

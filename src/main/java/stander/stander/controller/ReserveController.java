@@ -114,7 +114,7 @@ public class ReserveController {
         String file_path = fileDir + member.getId() + "/";
         String file_name = "QRCODE.jpg";
         String full_path = file_path + file_name;
-        QRUtil.makeQR(url, full_path);
+        QRUtil.makeQR(url, file_path, file_name);
 
         member.setQr(url);
         memberService.modify(member);

@@ -12,8 +12,19 @@ import java.io.File;
 
 public class QRUtil {
 
-    public static void makeQR(String url, String path) {
+    public static void makeQR(String url, String file_path, String file_name) {
+        String path = file_path + file_name;
         try {
+
+            File folder = new File(file_path);
+            if(!folder.exists()) {
+                try{
+                    folder.mkdir();
+                }
+                catch(Exception e) {
+                    e.getStackTrace();
+                }
+            }
 
             QRCodeWriter writer = new QRCodeWriter();
             url = new String(url.getBytes("UTF-8"), "ISO-8859-1");
