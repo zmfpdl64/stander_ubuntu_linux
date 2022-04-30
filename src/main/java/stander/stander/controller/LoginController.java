@@ -63,6 +63,7 @@ public class LoginController {
     @PostMapping("/join")
     public String create_join(@Valid @ModelAttribute MemberForm memberForm, Model model) {
         Member member = new Member();
+        member.setName(memberForm.getName());
         member.setUsername(memberForm.getUsername());
         member.setPassword(memberForm.getPassword());
         member.setAge(Long.parseLong(memberForm.getAge()));

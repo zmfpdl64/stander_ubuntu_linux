@@ -16,6 +16,7 @@ import stander.stander.web.SessionConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -55,13 +56,23 @@ public class ReserveController {
         }
 
         for (Seat seat : result) {
+            int time2 = (int) new Date().getTime();
             int time = seat.getMember().getTime();
             int day = time / (60 * 60 * 24);  // day *
             int hour = time % (60 * 60 * 24) / (60 * 60);
             int minute = time % (60 * 60) / 60;
             int second = time % 60;
-            String user_name = seat.getMember().getUsername();
-            String left_time = user_name + "<br/>" + day + "일 " + hour + "시간 " + minute + "분";
+            String[] user_name = seat.getMember().getName().split("");
+            if (user_name.length >= 3) {
+                int length = user_name.length;
+                for(int i = 1; i < length-1; i++) {
+                    user_name[i] = "*";
+                }
+            }
+            else{
+                user_name[0] = "*";
+            }
+            String left_time = String.join("", user_name) + "<br/>" + day + "일 " + hour + "시간 " + minute + "분";
             System.out.println(left_time);
             model.addAttribute("sit" + seat.getSeat_num(), left_time);
         }

@@ -11,6 +11,7 @@ import java.util.Date;
 @Getter @Setter
 public class MemberForm {
 
+        private String name;
         private String username;
         private String password;
         private String gender;

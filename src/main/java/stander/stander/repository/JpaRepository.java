@@ -1,5 +1,6 @@
 package stander.stander.repository;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 import stander.stander.model.Entity.Member;
 import stander.stander.model.Entity.Seat;
@@ -9,6 +10,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Repository
 public class JpaRepository implements stander.stander.repository.Repository {
 
@@ -19,7 +21,9 @@ public class JpaRepository implements stander.stander.repository.Repository {
     }
 
     public Member save(Member member) {
-        if(em.find(Member.class, member) == null)
+
+
+        if(member.getId() == null)
             em.persist(member);
         else
             em.merge(member);
