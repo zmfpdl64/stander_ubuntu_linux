@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import stander.stander.model.Entity.Member;
 import stander.stander.model.Entity.Seat;
 import stander.stander.service.MemberService;
 import stander.stander.service.SeatService;
@@ -30,8 +31,12 @@ public class TimeDiminish {
             int time = seat.getMember().getTime() - use_time;
             log.info("time = {}", time);
 
-            if(time <= 0) {
-                seatService.clearOne(seat.getMember());
+            if(seat.getMember().getTime() == 0) {
+                Member member = seat.getMember();
+                member.setQr(null);
+                seatService.clearOne(member);
+                memberService.modify(member);
+
             }
             else{
                 seat.getMember().setTime(seat.getMember().getTime() - 1);

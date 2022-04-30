@@ -35,7 +35,9 @@
             <center>
                 <div class="description">
                         <div style="width: 50%; text-align: center; height: 50px; margin: auto; display: flex; background-color: white; border-radius: 30px">
-                                <h3 style="padding-left: 50px" th:utext="|남은시간: ${left_time}|">남은시간: </h3>
+                                <h3 style="padding-left: 50px" th:if="0 != ${member.getTime()}" th:utext="|남은시간: ${left_time}|">남은시간: </h3>
+                                <h3 style="padding-left: 50px" th:unless="0 != ${member.getTime()}" th:utext="|남은시간: 0|">남은시간: 0</h3>
+
                         </div>
                     <br><br>
                     <img th:if="${member.getQr()} != null" th:src="|@{images/}${member.getId()}/QRCODE.jpg|">
