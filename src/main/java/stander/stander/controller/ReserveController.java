@@ -56,12 +56,12 @@ public class ReserveController {
         }
 
         for (Seat seat : result) {
-            int time2 = (int) new Date().getTime();
             int time = seat.getMember().getTime();
             int day = time / (60 * 60 * 24);  // day *
             int hour = time % (60 * 60 * 24) / (60 * 60);
             int minute = time % (60 * 60) / 60;
             int second = time % 60;
+
             String[] user_name = seat.getMember().getName().split("");
             if (user_name.length >= 3) {
                 int length = user_name.length;
@@ -72,7 +72,7 @@ public class ReserveController {
             else{
                 user_name[0] = "*";
             }
-            String left_time = String.join("", user_name) + "<br/>" + day + "일 " + hour + "시간 " + minute + "분";
+            String left_time = String.join("", user_name) + "<br/>" + day + "일 " + hour + "시간 " + minute + "분" + second + "초";
             System.out.println(left_time);
             model.addAttribute("sit" + seat.getSeat_num(), left_time);
         }
