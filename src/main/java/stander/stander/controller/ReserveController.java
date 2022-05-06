@@ -83,8 +83,73 @@ public class ReserveController {
     public String price(@RequestParam(name = "num", required=false) String num, Model model, HttpServletRequest request
     , RedirectAttributes redirectAttributes) {
 
-        Long id = Long.parseLong(num);
+        if (null != num) {
+            Long id = Long.parseLong(num);
 
+
+            HttpSession session = request.getSession(false);
+            if(session == null) {
+                model.addAttribute("msg", "로그인이 필요합니다");
+                return "login/login";
+            }
+
+            Member member = (Member) session.getAttribute(SessionConstants.LOGIN_MEMBER);
+            if(member == null) {
+                model.addAttribute("msg", "회원이 존재하지 않습니다");
+                return "login/join";
+            }
+            List<Seat> sits = sitService.findAll();
+
+            if( sits != null && sitService.check_member(member) ) { //중복이 있을때 참
+
+                sortSit(sits);
+
+                model.addAttribute("sits", sits);
+
+
+                model.addAttribute("member", member);
+                redirectAttributes.addFlashAttribute("msg", "중복으로 예약이 되어있습니다.");
+                return "redirect:/reserve";
+            }
+
+            if(sitService.check_sit(id)) {
+                sortSit(sits);
+                model.addAttribute("sits", sits);
+                model.addAttribute("member", member);
+                redirectAttributes.addFlashAttribute("msg", "좌석이 이미 예약되어 있습니다");
+
+                return "redirect:/reserve";
+            }
+
+            String url = "http://localhost:8080/open/" + member.getId();
+
+            String file_path = fileDir + member.getId() + "/";
+            String file_name = "QRCODE.jpg";
+            String full_path = file_path + file_name;
+            QRUtil.makeQR(url, file_path, file_name);
+
+            member.setQr(url);
+            memberService.modify(member);
+
+            Seat seat = new Seat();
+            seat.setMember(member);
+            seat.setSeat_num(String.valueOf(id));
+            seat.setPresent_use(true);
+            seat.setCheck_in(new Date());
+            sitService.save(seat);
+
+
+
+            if(member.getTime() == 0) {
+                model.addAttribute("msg", "시간 충전이 필요합니다");
+                model.addAttribute("num", num);
+                model.addAttribute("member", member);
+                return "reserve/price";
+            }
+            redirectAttributes.addFlashAttribute("msg", "예약이 완료되었습니다");
+
+            return "redirect:/mypage";
+        }
 
         HttpSession session = request.getSession(false);
         if(session == null) {
@@ -97,57 +162,11 @@ public class ReserveController {
             model.addAttribute("msg", "회원이 존재하지 않습니다");
             return "login/join";
         }
-        List<Seat> sits = sitService.findAll();
-
-        if( sits != null && sitService.check_member(member) ) { //중복이 있을때 참
-
-            sortSit(sits);
-
-            model.addAttribute("sits", sits);
+        model.addAttribute("member", member);
 
 
-            model.addAttribute("member", member);
-            redirectAttributes.addFlashAttribute("msg", "중복으로 예약이 되어있습니다.");
-            return "redirect:/reserve";
-        }
+        return "reserve/price";
 
-        if(sitService.check_sit(id)) {
-            sortSit(sits);
-            model.addAttribute("sits", sits);
-            model.addAttribute("member", member);
-            redirectAttributes.addFlashAttribute("msg", "좌석이 이미 예약되어 있습니다");
-
-            return "redirect:/reserve";
-        }
-
-        String url = "http://localhost:8080/open/" + member.getId();
-
-        String file_path = fileDir + member.getId() + "/";
-        String file_name = "QRCODE.jpg";
-        String full_path = file_path + file_name;
-        QRUtil.makeQR(url, file_path, file_name);
-
-        member.setQr(url);
-        memberService.modify(member);
-
-        Seat seat = new Seat();
-        seat.setMember(member);
-        seat.setSeat_num(String.valueOf(id));
-        seat.setPresent_use(true);
-        seat.setCheck_in(new Date());
-        sitService.save(seat);
-
-
-
-        if(member.getTime() == 0) {
-            model.addAttribute("msg", "시간 충전이 필요합니다");
-            model.addAttribute("num", num);
-            model.addAttribute("member", member);
-            return "reserve/price";
-        }
-        redirectAttributes.addFlashAttribute("msg", "예약이 완료되었습니다");
-
-        return "redirect:/mypage";
     }
 
     private void sortSit(List<Seat> sits) {

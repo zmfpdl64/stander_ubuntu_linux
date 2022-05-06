@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/login")
@@ -61,7 +65,17 @@ public class LoginController {
     }
 
     @PostMapping("/join")
-    public String create_join(@Valid @ModelAttribute MemberForm memberForm, Model model) {
+    public String create_join(@ModelAttribute @Valid MemberForm memberForm, BindingResult errors, Model model) {
+
+        if (errors.hasErrors()) {
+            Map<String, String> validatorResult = new HashMap<>();
+            for(FieldError error : errors.getFieldErrors()) {
+                String key = String.format("valid_%s", error.getField());
+                model.addAttribute(key, error.getDefaultMessage());
+            }
+            return "login/join";
+        }
+
         Member member = new Member();
         member.setName(memberForm.getName());
         member.setUsername(memberForm.getUsername());

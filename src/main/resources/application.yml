@@ -12,9 +12,9 @@ spring:
   thymeleaf:
     cache: false
   jpa:
-    properties:
-      hibernate:
-        format_sql: true
+#    properties:
+#      hibernate:
+#        format_sql: true
     hibernate:
       ddl-auto: none
       #create: 기존테이블 삭제 후 다시 생성 (DROP + CREATE)
@@ -36,3 +36,4 @@ logging:
 
 file:
   dir: C:/images/
+
