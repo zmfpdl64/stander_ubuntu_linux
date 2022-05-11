@@ -11,6 +11,19 @@ spring:
     cache: false
   thymeleaf:
     cache: false
+  boot:
+    admin:
+      mail:
+        from: ${spring.mail.username}
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username: zmfpdl64@naver.com
+    password: "!@#a1058722"
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+
   jpa:
 #    properties:
 #      hibernate:
@@ -27,12 +40,12 @@ server:
   servlet:
     session:
       timeout: 1800
-logging:
-  level:
-    org:
-      hibernate:
-#        SQL: debug
-        type: info
+#logging:
+#  level:
+#    org:
+#      hibernate:
+##        SQL: debug
+#        type: info
 
 file:
   dir: C:/images/

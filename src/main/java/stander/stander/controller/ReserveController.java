@@ -121,6 +121,17 @@ public class ReserveController {
                 return "redirect:/reserve";
             }
 
+
+
+
+
+            if(member.getTime() == 0) {
+                model.addAttribute("msg", "시간 충전이 필요합니다");
+                model.addAttribute("num", num);
+                model.addAttribute("member", member);
+                return "reserve/price";
+            }
+
             String url = "http://localhost:8080/open/" + member.getId();
 
             String file_path = fileDir + member.getId() + "/";
@@ -138,14 +149,6 @@ public class ReserveController {
             seat.setCheck_in(new Date());
             sitService.save(seat);
 
-
-
-            if(member.getTime() == 0) {
-                model.addAttribute("msg", "시간 충전이 필요합니다");
-                model.addAttribute("num", num);
-                model.addAttribute("member", member);
-                return "reserve/price";
-            }
             redirectAttributes.addFlashAttribute("msg", "예약이 완료되었습니다");
 
             return "redirect:/mypage";

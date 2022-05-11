@@ -11,6 +11,7 @@ import stander.stander.service.SeatService;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 @Component
@@ -24,25 +25,26 @@ public class TimeDiminish {
     @Scheduled(cron = "0/1 * * * * *")
     public void timeDiminish() {
         List<Seat> useSeat = seatService.findUseSeat();
-        for(Seat seat: useSeat) {
-            int use_time = ((int) new Date().getTime() - (int) seat.getCheck_in().getTime()) / 1000;
-            log.info("use_time = {}", use_time);
+        if(!Objects.isNull(useSeat)) {
+            for (Seat seat : useSeat) {
+                int use_time = ((int) new Date().getTime() - (int) seat.getCheck_in().getTime()) / 1000;
+                log.info("use_time = {}", use_time);
 
-            int time = seat.getMember().getTime() - use_time;
-            log.info("time = {}", time);
+                int time = seat.getMember().getTime() - use_time;
+                log.info("time = {}", time);
 
-            if(seat.getMember().getTime() == 0) {
-                Member member = seat.getMember();
-                member.setQr(null);
-                seatService.clearOne(member);
-                memberService.modify(member);
+                if (seat.getMember().getTime() == 0) {
+                    Member member = seat.getMember();
+                    member.setQr(null);
+                    seatService.clearOne(member);
+                    memberService.modify(member);
+
+                } else {
+                    seat.getMember().setTime(seat.getMember().getTime() - 1);
+                    memberService.modify(seat.getMember());
+                }
 
             }
-            else{
-                seat.getMember().setTime(seat.getMember().getTime() - 1);
-                memberService.modify(seat.getMember());
-            }
-
         }
     }
 

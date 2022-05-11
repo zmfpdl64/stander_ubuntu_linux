@@ -58,8 +58,8 @@ public class JpaSitRepository implements SitRepository {
         List<Seat> result = em.createQuery("select m from Seat m where m.present_use = :present_use", Seat.class)
                 .setParameter("present_use", true)
                 .getResultList();
-        log.info("result = {}", result);
-        if (result.isEmpty()) {
+//        log.info("result = {}", result);
+        if (result.size() == 0) {
             return null;
         }
         return result;

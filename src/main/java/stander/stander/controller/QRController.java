@@ -16,6 +16,8 @@ import stander.stander.web.SessionConstants;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -32,6 +34,8 @@ public class QRController {
     @GetMapping("/create")
     public String makeQr(HttpServletRequest request)
             throws WriterException, IOException {
+
+
 
         int width = 150;
         int height = 150;
@@ -70,3 +74,5 @@ public class QRController {
 //////        return new UrlResource("file:///C:images/QRCODE.jpg");
 ////        return new UrlResource(full_path);
 }
+
+

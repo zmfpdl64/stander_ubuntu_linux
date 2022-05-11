@@ -26,7 +26,7 @@ public class MemberService {
         repository.merge(member);
     }
     private void validName(Member member) {
-        if(repository.findByUsername(member.getUsername()).isEmpty())
+        if(repository.findByUsername(member.getUsername()) != null)
         {
             throw new IllegalStateException("이름이 중복됩니다.");
         }
@@ -35,7 +35,7 @@ public class MemberService {
     public Member login(LoginForm loginForm) {
 //        Member member = repository.findById(7L);
 //        System.out.println(member.getName() + member.getPassword());
-        Member member = repository.findByUsername(loginForm.getUsername()).orElse(null);
+        Member member = repository.findByUsername(loginForm.getUsername());
         if( member != null) {
             if(loginForm.getUsername().equals(member.getUsername()) && loginForm.getPassword().equals(member.getPassword())) {
                 System.out.println("로그인 성공했습니다.");
@@ -46,8 +46,18 @@ public class MemberService {
 //        throw new IllegalArgumentException("로그인 실패했습니다.");
     }
 
+    public Member findByEmail(String email) {
+        Member member = repository.findByEmail(email);
+        return member;
+    }
+
     public Member findById(Long id) {
         Member member = repository.findById(id);
+        return member;
+    }
+
+    public Member findByUsername(String username) {
+        Member member = repository.findByUsername(username);
         return member;
     }
 

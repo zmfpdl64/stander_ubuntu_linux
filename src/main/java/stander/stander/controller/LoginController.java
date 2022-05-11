@@ -1,16 +1,18 @@
 package stander.stander.controller;
 
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import stander.stander.model.Entity.Member;
 import stander.stander.model.Form.LoginForm;
 import stander.stander.model.Form.MemberForm;
@@ -18,14 +20,19 @@ import stander.stander.service.MemberService;
 import stander.stander.service.SeatService;
 import stander.stander.web.SessionConstants;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
+@RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/login")
 public class LoginController {
 
@@ -34,6 +41,14 @@ public class LoginController {
     @Autowired
     private SeatService seatService;
 
+    private final JavaMailSender javaMailSender;
+
+    @Value("${spring.mail.username}")
+    private String from;
+
+
+
+
 
     @GetMapping
     public String post_login() {
@@ -41,9 +56,14 @@ public class LoginController {
     }
 
     @PostMapping
-    public String check_login(@Valid @ModelAttribute LoginForm loginForm, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response
+    public String check_login(@ModelAttribute @Valid LoginForm loginForm, BindingResult errors, HttpServletRequest request, HttpServletResponse response
             , Model model) {
-        if(bindingResult.hasErrors()) {
+        if(errors.hasErrors()) {
+            Map<String, String> validatorResult = new HashMap<>();
+            for(FieldError error : errors.getFieldErrors()) {
+                String key = String.format("valid_%s", error.getField());
+                model.addAttribute(key, error.getDefaultMessage());
+            }
             return "login/login";
         }
         Member member = memberService.login(loginForm);
@@ -53,8 +73,8 @@ public class LoginController {
 
             return "redirect:/mypage";
         }
-        bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다");
         model.addAttribute("member", loginForm);
+        model.addAttribute("msg", "아이디나 비밀번호가 일치하지 않습니다");
         return "login/login";
     }
 
@@ -88,6 +108,39 @@ public class LoginController {
 //        return "login/join";
         return "redirect:/";
     }
+
+    @GetMapping("/findpassword")
+    public String findpassword() {
+
+
+
+        return "login/findpassword";
+    }
+
+    @PostMapping("/findpassword")
+    public String post_findpassword(@RequestParam("username") String username, Model model) throws MessagingException {
+
+        Member member = memberService.findByUsername(username);
+        log.info("member.getEmail = {}          username = {}", member.getUsername(), username);
+
+        if(member.getUsername().equals(username)) {
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+            mimeMessageHelper.setFrom(from);
+            mimeMessageHelper.setTo(member.getEmail());
+            mimeMessageHelper.setSubject("[STNADER] 비밀번호 안내");
+
+            StringBuilder body = new StringBuilder();
+            body.append("당신의 비밀번호는: " + member.getPassword());
+            mimeMessageHelper.setText(body.toString(), true);
+            javaMailSender.send(mimeMessage);
+        }
+        model.addAttribute("msg", "메일이 발송됐습니다");
+        return "login/findpassword";
+    }
+
+
+
 
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
