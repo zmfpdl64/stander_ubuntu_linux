@@ -20,12 +20,15 @@ import stander.stander.service.MemberService;
 import stander.stander.service.SeatService;
 import stander.stander.web.SessionConstants;
 
+import javax.activation.FileDataSource;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.*;
 import javax.validation.Valid;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -45,6 +48,9 @@ public class LoginController {
 
     @Value("${spring.mail.username}")
     private String from;
+
+    @Value("${file.dir}")
+    private String fileDir;
 
 
 
@@ -129,9 +135,11 @@ public class LoginController {
             mimeMessageHelper.setFrom(from);
             mimeMessageHelper.setTo(member.getEmail());
             mimeMessageHelper.setSubject("[STNADER] 비밀번호 안내");
+            mimeMessageHelper.addInline("icon", new File("C:/images/icon.jpg"));
+
 
             StringBuilder body = new StringBuilder();
-            body.append("당신의 비밀번호는: " + member.getPassword());
+            body.append("<center><img src=\"http://localhost:8080/img/icon1.jpg\"><h1 style=\"color:#87CEEB; \">비밀번호</h1><br><br><h1>안녕하세요 "+ member.getName()+"님"  +"</h1><br> 고객님의 비밀번호는: " + member.getPassword() +"입니다." +"</center>");
             mimeMessageHelper.setText(body.toString(), true);
             javaMailSender.send(mimeMessage);
         }

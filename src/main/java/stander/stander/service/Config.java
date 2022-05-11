@@ -49,50 +49,6 @@ public class Config implements WebMvcConfigurer {
         return new SeatService(sitrepository());
     }
 
-//    @Bean
-//    public JavaMailSender javaMailSender() {
-//        return new JavaMailSender() {
-//            @Override
-//            public MimeMessage createMimeMessage() {
-//                return null;
-//            }
-//
-//            @Override
-//            public MimeMessage createMimeMessage(InputStream contentStream) throws MailException {
-//                return null;
-//            }
-//
-//            @Override
-//            public void send(MimeMessage mimeMessage) throws MailException {
-//
-//            }
-//
-//            @Override
-//            public void send(MimeMessage... mimeMessages) throws MailException {
-//
-//            }
-//
-//            @Override
-//            public void send(MimeMessagePreparator mimeMessagePreparator) throws MailException {
-//
-//            }
-//
-//            @Override
-//            public void send(MimeMessagePreparator... mimeMessagePreparators) throws MailException {
-//
-//            }
-//
-//            @Override
-//            public void send(SimpleMailMessage simpleMessage) throws MailException {
-//
-//            }
-//
-//            @Override
-//            public void send(SimpleMailMessage... simpleMessages) throws MailException {
-//
-//            }
-//        };
-//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
