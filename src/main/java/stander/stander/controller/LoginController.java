@@ -139,7 +139,9 @@ public class LoginController {
 
 
             StringBuilder body = new StringBuilder();
-            body.append("<center><img src=\"http://localhost:8080/img/icon1.jpg\"><h1 style=\"color:#87CEEB; \">비밀번호</h1><br><br><h1>안녕하세요 "+ member.getName()+"님"  +"</h1><br> 고객님의 비밀번호는: " + member.getPassword() +"입니다." +"</center>");
+            body.append("<center><img src=\"http://localhost:8080/img/icon1.jpg\"><h1 style=\"color:#87CEEB; \">" +
+                    "비밀번호</h1><br><br><h1>안녕하세요 "+ member.getName()+"님"  +"</h1><br> 고객님의 비밀번호는: "
+                    + member.getPassword() +"입니다." +"</center>");
             mimeMessageHelper.setText(body.toString(), true);
             javaMailSender.send(mimeMessage);
         }
