@@ -44,7 +44,11 @@ https://jung-max.github.io/2020/06/24/Web-3_SpringBoot-MariaDb%EC%97%B0%EA%B2%B0
 <h3>3. 앱, 웹을 같은 db를 연동하여 앱, 웹을 통합한 시스템을 구현하고 싶었습니다.</h3>
 
 <h2>무인 카페 시스템 원리</h2>
+![image](https://user-images.githubusercontent.com/69797420/170821938-52fd04aa-b46b-43bb-bd98-d792a5be91e8.png)
 
+
+
+![image](https://user-images.githubusercontent.com/69797420/170821953-00fb6f58-c560-4559-ab70-2354c46ab1e8.png)
 
 <h1> 무인 카페 시스템 메인 기능</h1>
 
