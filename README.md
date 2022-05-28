@@ -107,10 +107,13 @@ https://jung-max.github.io/2020/06/24/Web-3_SpringBoot-MariaDb%EC%97%B0%EA%B2%B0
 <h3>4. 마이 페이지</h3>
 
 <h3>예약 하기 전 마이 페이지</h3>
+    
 ![](../../../../../GOMCam/GOMCAM 20220510_0154080891.png)
+    
 <br><br>
 
 <h3>예약 한 후 마이 페이지</h3>
+    
 ![](../../../../../GOMCam/10주차/GOMCAM 20220507_2058420860.png)
 
 <br>
