@@ -54,7 +54,9 @@ https://jung-max.github.io/2020/06/24/Web-3_SpringBoot-MariaDb%EC%97%B0%EA%B2%B0
 <h1> 무인 카페 시스템 메인 기능</h1>
 
 <h3>1. 회원가입</h3>
+
 ![join](https://user-images.githubusercontent.com/69797420/170821105-ac4451cd-bbc1-42ca-a916-48cc8a11fc67.gif)
+
 
 <h3>2. 로그인</h3>
 <h3>3. 예약하기</h3>
