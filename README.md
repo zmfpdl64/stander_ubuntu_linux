@@ -36,3 +36,5 @@ https://jung-max.github.io/2020/06/24/Web-3_SpringBoot-MariaDb%EC%97%B0%EA%B2%B0
 member의 database 형식으로 이것들을 똑같이 설정해주고 
 
 id요소는 오른쪽 클릭을 통해 index추가하여 primary속성을 추가해준다.
+
+<img width="80%" src="img/testing_gif/로그인 시간 없음.gif">
