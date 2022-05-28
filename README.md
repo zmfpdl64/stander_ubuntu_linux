@@ -40,6 +40,7 @@ https://jung-max.github.io/2020/06/24/Web-3_SpringBoot-MariaDb%EC%97%B0%EA%B2%B0
 
 설명이 잘 되어 있어 이걸 보고 진행해도 좋다.
 <h3>Member Model</h3>
+
 ![img_1.png](img_1.png)
 
 <h3>Seat Model</h3>
