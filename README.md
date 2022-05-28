@@ -128,8 +128,9 @@ https://jung-max.github.io/2020/06/24/Web-3_SpringBoot-MariaDb%EC%97%B0%EA%B2%B0
 ![except_reserve](https://user-images.githubusercontent.com/69797420/170821103-3b416e1c-265d-425d-af32-cf8c566bbe96.gif)
 
 <h3>예약할 때 2가지의 예외처리를 진행했다.
-1. 한사람이 두 좌석을 예약했을 때 예외처리
-2. 두사람이 동일한 좌석을 예약했을 때 예외처리</h3>
+1. 한사람이 두 좌석을 예약했을 때 예외처리<br>
+2. 두사람이 동일한 좌석을 예약했을 때 예외처리<br>
+    </h3>
 <br>
 
 
