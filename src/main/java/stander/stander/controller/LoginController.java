@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -51,10 +52,6 @@ public class LoginController {
 
     @Value("${file.dir}")
     private String fileDir;
-
-
-
-
 
     @GetMapping
     public String post_login() {
@@ -127,26 +124,33 @@ public class LoginController {
     public String post_findpassword(@RequestParam("username") String username, Model model) throws MessagingException {
 
         Member member = memberService.findByUsername(username);
-        log.info("member.getEmail = {}          username = {}", member.getUsername(), username);
+//        log.info("member.getEmail = {}          username = {}", member.getUsername(), username);
+        try{
+            if(member.getUsername().equals(username)) {
+                MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+                mimeMessageHelper.setFrom(from);
+                mimeMessageHelper.setTo(member.getEmail());
+                mimeMessageHelper.setSubject("[STNADER] 비밀번호 안내");
+                mimeMessageHelper.addInline("icon", new File("C:/images/icon.jpg"));
 
-        if(member.getUsername().equals(username)) {
-            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-            mimeMessageHelper.setFrom(from);
-            mimeMessageHelper.setTo(member.getEmail());
-            mimeMessageHelper.setSubject("[STNADER] 비밀번호 안내");
-            mimeMessageHelper.addInline("icon", new File("C:/images/icon.jpg"));
 
-
-            StringBuilder body = new StringBuilder();
-            body.append("<center><img src=\"http://localhost:8080/img/icon1.jpg\"><h1 style=\"color:#87CEEB; \">" +
-                    "비밀번호</h1><br><br><h1>안녕하세요 "+ member.getName()+"님"  +"</h1><br> 고객님의 비밀번호는: "
-                    + member.getPassword() +"입니다." +"</center>");
-            mimeMessageHelper.setText(body.toString(), true);
-            javaMailSender.send(mimeMessage);
+                StringBuilder body = new StringBuilder();
+                body.append("<center><img src=\"http://localhost:8080/img/icon1.jpg\"><h1 style=\"color:#87CEEB; \">" +
+                        "비밀번호</h1><br><br><h1>안녕하세요 "+ member.getName()+"님"  +"</h1><br> 고객님의 비밀번호는: "
+                        + member.getPassword() +"입니다." +"</center>");
+                mimeMessageHelper.setText(body.toString(), true);
+                javaMailSender.send(mimeMessage);
+            }
+            model.addAttribute("msg", "메일이 발송됐습니다");
+            return "login/findpassword";
         }
-        model.addAttribute("msg", "메일이 발송됐습니다");
-        return "login/findpassword";
+        catch(Exception e) {
+            log.info(String.valueOf(e));
+            model.addAttribute("msg", "오류가 발생했습니다");
+            return "login/findpassword";
+        }
+
     }
 
 
