@@ -37,10 +37,11 @@ member의 database 형식으로 이것들을 똑같이 설정해주고
 
 id요소는 오른쪽 클릭을 통해 index추가하여 primary속성을 추가해준다.
 
-<img width="80%" src="img/testing_gif/로그인 시간 없음.gif">
-![로그인 시간 없음](https://user-images.githubusercontent.com/69797420/170821059-fe2057ea-78b9-41bd-b225-aea7569408e0.gif)![로그인 시간 있음](https://user-images.githubusercontent.com/69797420/170821062-1abff7a9-5fb2-4f05-88be-fee26f7c40b4.gif)
-![예약하기 근본](https://user-images.githubusercontent.com/69797420/170821064-456e4904-4dda-485b-bb98-0d7b06afc110.gif)
-![중복예약, 중복좌석 예외처리](https://user-images.githubusercontent.com/69797420/170821065-6d1ea298-a5b5-4a6a-9ccf-83de0a266e54.gif)
-![회원가입](https://user-images.githubusercontent.com/69797420/170821067-77518d4a-3e5c-4f1d-a7b6-693353eee0b3.gif)
+![except_reserve](https://user-images.githubusercontent.com/69797420/170821103-3b416e1c-265d-425d-af32-cf8c566bbe96.gif)
+![join](https://user-images.githubusercontent.com/69797420/170821105-ac4451cd-bbc1-42ca-a916-48cc8a11fc67.gif)
+![login_havetime](https://user-images.githubusercontent.com/69797420/170821107-2121278b-b9ab-4bad-905a-4b22d21d9d32.gif)
+![login_notime](https://user-images.githubusercontent.com/69797420/170821109-4c2132aa-c9da-4800-842c-78a116d5306e.gif)
+![preserve](https://user-images.githubusercontent.com/69797420/170821111-60f42a37-bc4b-45e1-b04c-514631de6b8f.gif)
+
 
 
