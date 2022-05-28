@@ -109,7 +109,7 @@ https://jung-max.github.io/2020/06/24/Web-3_SpringBoot-MariaDb%EC%97%B0%EA%B2%B0
 <h3>예약 하기 전 마이 페이지</h3>
     
     
-![](../../../../../GOMCam/GOMCAM 20220510_0154080891.png)
+![GOMCAM 20220510_0154080891](https://user-images.githubusercontent.com/69797420/170823306-47ce36ac-7f7d-49ff-ad16-0e9c3c0dcac8.png)
     
     
 <br><br>
@@ -117,7 +117,7 @@ https://jung-max.github.io/2020/06/24/Web-3_SpringBoot-MariaDb%EC%97%B0%EA%B2%B0
 <h3>예약 한 후 마이 페이지</h3>
     
     
-![](../../../../../GOMCam/10주차/GOMCAM 20220507_2058420860.png)
+![GOMCAM 20220507_2058420860](https://user-images.githubusercontent.com/69797420/170823324-a0336188-24d5-4ef9-a16c-9d0fa625ff22.png)
 
     
 <br>
