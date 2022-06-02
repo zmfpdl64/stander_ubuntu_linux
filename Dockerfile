@@ -1,12 +1,11 @@
 FROM openjdk:11
 
 #ENV APP_HOME=/usr/app/
-ENV APP_HOME=D:/
-
-WORKDIR $APP_HOME
 
 COPY build/libs/*.jar ./application.jar
 
-EXPOSE 8080
+EXPOSE 8080:8080
 
-CMD ["java", "-jar", "application.jar"]
+ENTRYPOINT ["java", "-jar", "application.jar"]
+
+
