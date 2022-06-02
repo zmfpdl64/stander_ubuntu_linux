@@ -7,16 +7,15 @@ services:
       context: .
       # 도커 이미지를 빌드하는데 사용할 도커 파일
       dockerfile: ./Dockerfile
-    links:
-    - mariadb:mariadb # db이름 : 별칭
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mariadb://52.79.68.166:3306/jpastander #jdbc:mariadb:// 별칭 :3306/테이블 이름름      SPRING_DATASOURCE_USERNAME: woojin
+      SPRING_DATASOURCE_URL: jdbc:mariadb://database:3306/jpastander
+      SPRING_DATASOURCE_USERNAME: woojin
       SPRING_DATASOURCE_PASSWORD: 1234
     restart: always
+    links:
+    - mariadb:mariadb
     ports:
       - 8080:8080
-    volumes:
-      - ./:/app/
     depends_on:
       # 의존 관계 설정
       - mariadb
@@ -33,4 +32,3 @@ services:
       MARIADB_ROOT_PASSWORD : 1234
       MARIADB_USER: woojin
       MARIADB_PASSWORD: 1234
-
