@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mariadb://127.0.0.1:3306/jpastander
+    url: jdbc:mariadb://127.0.0.1:3306/jpastander?characterEncoding=UTF-8&serverTimezone=UTC
     username: woojin
     password: 1234
     driver-class-name: org.mariadb.jdbc.Driver
@@ -25,11 +25,12 @@ spring:
       mail.smtp.ssl.enable: true
 
   jpa:
-#    properties:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        format_sql: true
 #      hibernate:
-#        format_sql: true
-    hibernate:
-      ddl-auto: create
+        ddl-auto: create
       #create: 기존테이블 삭제 후 다시 생성 (DROP + CREATE)
       #create-drop: create와 같으나 종료시점에 테이블 DROP
       #update: 변경분만 반영(운영DB에서는 사용하면 안됨)
@@ -49,4 +50,5 @@ server:
 
 file:
   dir: C:/images/
+
 

@@ -11,7 +11,6 @@ import java.util.Date;
 
 @Entity
 @Getter @Setter
-
 public class Member {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
