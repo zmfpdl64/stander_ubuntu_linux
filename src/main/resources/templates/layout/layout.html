@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       lang="ko">
-<div th:replace="/fragment/head :: head"></div>
+<div th:replace="fragment/head :: head"></div>
 <body>
-<div th:replace="/fragment/navbar :: navbar"></div>
+<div th:replace="fragment/navbar :: navbar"></div>
 <div th:block layout:fragment="content"></div>
 </body>
 </html>
