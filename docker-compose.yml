@@ -8,7 +8,7 @@ services:
       # 도커 이미지를 빌드하는데 사용할 도커 파일
       dockerfile: ./Dockerfile
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mariadb://mariadb:3306/jpastander
+      SPRING_DATASOURCE_URL: jdbc:mariadb://52.79.68.166:3306/jpastander
       SPRING_DATASOURCE_USERNAME: woojin
       SPRING_DATASOURCE_PASSWORD: 1234
     restart: always
