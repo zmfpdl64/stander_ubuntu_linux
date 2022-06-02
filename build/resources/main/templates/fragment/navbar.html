@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org"
+
+      lang="ko">
+
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark" >
+
+<div class="container-fluid ">
+    <a href="/">    <img src="/img/icon.png" style="height:60px; width:60px; margin-right:10px">
+    </a>
+    <a class="navbar-brand" href="/">STANDER</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">홈페이지</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/about_cafe">카페 소개</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/map">찾아오기</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/reserve">예약하기</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/reserve/price">결제하기</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown link
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <a th:if="${session.loginMember == null}" role="button" class="btn btn-primary" href="/login" style="margin-right:30px">로그인</a>
+    <a th:unless="${session.loginMember == null}" role="button" class="btn btn-primary" href="/mypage" style="margin-right:30px">마이페이지</a>
+    <a th:if="${session.loginMember == null}" role="button" class="btn btn-primary" href="/login/join">회원가입</a>
+    <a th:unless="${session.loginMember == null}" role="button" class="btn btn-primary" href="/login/logout">로그아웃</a>
+
+</div>
+</nav>
+</html>

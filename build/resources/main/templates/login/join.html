@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}"
+      lang="ko">
+<div layout:fragment="content" class="row">
+    <div class="col-4">
+        <h1>hello</h1>
+    </div>
+    <div class="col-4">
+        <div class="row-4">
+
+        </div>
+        <div class="row-4">
+<!--            <form method="post" th:if="${member}" th:object="${member}" entype="multipart/form-data" action="/login/join">-->
+<!--                <fieldset>-->
+<!--                <legend>회원가입</legend>-->
+<!--                <table>-->
+<!--                    <div id="div-id_tags_str">-->
+<!--                        <label for="username">이름:</label>-->
+<!--                        <input type="text" name="username" id="username" placeholder="이름" required="required"-->
+<!--                               th:value="*{username}" style="width: 250px;" class="form-control">-->
+<!--                        <br>-->
+<!--                        <label for="name">아이디:</label>-->
+<!--                        <input type="text" name="name" id="name" placeholder="아이디" required="required"-->
+<!--                               th:value="*{name}" class="form-control">-->
+<!--                        <br>-->
+<!--                        <label for="password">비밀번호:</label>-->
+<!--                        <input type="password" name="password" placeholder="비밀번호" required="required" id="password"-->
+<!--                               th:value="*{password}" class="form-control">-->
+<!--                          <br>-->
+<!--                        <label for="phonenum">핸드폰 번호:</label>-->
+<!--                        <input type="text" name="phonenum" placeholder="휴대폰 번호" required="required" id="phonenum"-->
+<!--                               th:value="*{phonenum}" class="form-control">-->
+<!--                          <br>-->
+<!--                        <div class="row">-->
+<!--                            <label for="personnum_front">주민 번호:</label>-->
+<!--                            <div class="col-lg-4">-->
+<!--                            <input type="text" style="width:180px; margin-right:20px" name="personnum_front" placeholder="앞자리" required="required" id="personnum_front"-->
+<!--                                   th:value="*{personnum_front}" class="form-control">-->
+<!--                        </div>-->
+<!--                        <div class="col-lg-4">-->
+<!--                            <input type="password" style="width:180px; margin-left:20px" name="personnum_back" placeholder="뒷자리" required="required" id="personnum_back"-->
+<!--                                   th:value="*{personnum_back}" class="form-control">-->
+<!--                        </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </table>-->
+<!--                <br>-->
+<!--                <button type="submit" class="btn float-right"-->
+<!--                        style="font-size:20px; border-align:center; background-color:rgb(185, 183, 183); float:right; color:white; border-radius: 5px; height:50px; width:200px;">-->
+<!--                    확인-->
+<!--                </button>-->
+<!--                </fieldset>-->
+<!--            </form>-->
+
+            <form method="post"  entype="multipart/form-data" action="/login/join">
+                <fieldset>
+                    <legend>회원가입</legend>
+                    <table>
+                        <div id="div-id_tags_str">
+
+                            <label for="name">사용자 이름:</label>
+                            <input type="text" name="name" id="name" placeholder="아이디" required="required"
+                                   class="form-control">
+                            <span th:style="${'color: red; font-size:11px;'}" th:text="${valid_name}"></span>
+                            <br>
+                            <label for="username">아이디:</label>
+                            <input type="text" name="username" id="username" placeholder="아이디" required="required"
+                                   class="form-control">
+                            <span th:style="${'color: red; font-size:11px;'}" th:text="${valid_username}"></span>
+                            <br>
+                            <label for="password">비밀번호:</label>
+                            <input type="password" name="password" placeholder="비밀번호" required="required" id="password"
+                                   class="form-control">
+                            <span th:style="${'color: red; font-size:11px;'}" th:text="${valid_password}"></span>
+                            <br>
+                            <label for="email">이메일:</label>
+                            <input type="text" name="email" placeholder="example@email.com" required="required" id="email"
+                                   class="form-control">
+                            <span th:style="${'color: red; font-size:11px;'}" th:text="${valid_email}"></span>
+                            <br>
+                            <label for="age">나이:</label>
+                            <input type="text" name="age" placeholder="나이" required="required" id="age"
+                                   class="form-control">
+                            <br>
+                            <label for="gender">성별:</label>
+                            <input type="radio" name="gender" required="required" id="gender" value="male"
+                                   class="form-check-input">
+                                <label class="">남자</label>
+                            </input>
+                            <input type="radio" name="gender" required="required" id="gender" value="female"
+                                   class="form-check-input">
+                            <label class="form-check-label">여자</label>
+                            </input>
+                            <br>
+
+
+
+                        </div>
+                    </table>
+                    <br>
+                    <button type="submit" class="btn float-right"
+                            style="font-size:20px; border-align:center; background-color:rgb(185, 183, 183); float:right; color:white; border-radius: 5px; height:50px; width:200px;">
+                        확인
+                    </button>
+                </fieldset>
+            </form>
+        </div>
+        <script th:inline="javascript">
+          var result = [[${msg}]];
+          if(result != null) {
+            alert(result);
+          }
+        </script>
+    </div>
+</div>
+</html>
