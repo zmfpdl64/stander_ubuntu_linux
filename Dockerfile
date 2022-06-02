@@ -1,7 +1,7 @@
 FROM openjdk:11
 
-#ENV APP_HOME=/usr/app/
-ENV APP_HOME=D:/
+ENV APP_HOME=/usr/app/
+
 
 WORKDIR $APP_HOME
 
