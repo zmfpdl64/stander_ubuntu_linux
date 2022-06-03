@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mariadb://52.79.68.166/jpastander
+    url: jdbc:mariadb://52.79.68.166:8080/jpastander
     username: woojin
     password: 1234
     driver-class-name: org.mariadb.jdbc.Driver
