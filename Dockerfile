@@ -1,9 +1,9 @@
 FROM openjdk:11
 
-#ENV APP_HOME=/usr/app/
-ENV APP_HOME=/usr/
+#ENV JAVA_HOME=/usr/app/
+#ENV JAVA_HOME=/usr/
 
-WORKDIR $APP_HOME
+#WORKDIR $APP_HOME
 
 COPY build/libs/*.jar ./application.jar
 
