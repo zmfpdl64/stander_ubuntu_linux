@@ -35,4 +35,5 @@ server:
 file:
   dir: /usr/
 
-
+ip:
+  address: "3.38.33.154"
