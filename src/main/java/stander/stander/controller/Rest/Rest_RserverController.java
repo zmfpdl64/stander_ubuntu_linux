@@ -1,8 +1,11 @@
 package stander.stander.controller.Rest;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 import stander.stander.model.Entity.Member;
 import stander.stander.model.Entity.Seat;
 import stander.stander.service.MemberService;
@@ -10,6 +13,7 @@ import stander.stander.service.SeatService;
 
 import java.util.*;
 
+@Slf4j
 @RestController
 public class Rest_RserverController {
     @Autowired
@@ -55,7 +59,7 @@ public class Rest_RserverController {
                 System.out.println(left_time);
                 map.put("seat" + seat.getSeat_num(), left_time);
                 return map;
-            }
+        }
 
         } catch(Exception e) {
             return null;
@@ -64,8 +68,9 @@ public class Rest_RserverController {
     }
 
     @PostMapping("/rest_reserve/complete")
-    public String reserve_complete(@RequestParam("id") long id, @RequestParam("seat_num") String seat_num) {
+    public String reserve_complete(@RequestBody Map<String, String> map) {
         try{
+            long id = Long.parseLong(map.get("id"));
             Member member = memberService.findById(id);
             if (seatService.check_sit(id)) {
                 return "1";
@@ -80,7 +85,7 @@ public class Rest_RserverController {
             member.setQr(url);
             Seat seat = new Seat();
             seat.setMember(member);
-            seat.setSeat_num(String.valueOf(seat_num));
+            seat.setSeat_num(map.get("seat_num"));
             seat.setPresent_use(true);
             seat.setCheck_in(new Date());
             seatService.save(seat);
@@ -93,8 +98,10 @@ public class Rest_RserverController {
         }
     }
     @PostMapping("/rest_pay")
-    public String rest_pay(@RequestParam("id") Long id, @RequestParam(required = false, name = "time") int time) {
+    public String rest_pay(@RequestBody Map<String,String> map) {
         try {
+            Long id = Long.parseLong(map.get("id"));
+            int time = Integer.parseInt(map.get("time"));
             Member member = memberService.findById(id);
             member.setTime(member.getTime() + time);
             memberService.modify(member);
@@ -105,9 +112,10 @@ public class Rest_RserverController {
         }
     }
 
-    @PostMapping("/rest_reserve/clear/{id}")
-    public String clear(@PathVariable("id") Long id) {
+    @PostMapping("/rest_reserve/clear")
+    public String clear(@RequestBody Map<String, String> map) {
         try{
+            Long id = Long.parseLong(map.get("id"));
             Member member = memberService.findById(id);
             if(member == null) return null;
             member.setQr(null);

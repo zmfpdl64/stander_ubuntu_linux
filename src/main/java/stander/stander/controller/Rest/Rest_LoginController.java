@@ -3,17 +3,14 @@ package stander.stander.controller.Rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import stander.stander.model.Entity.Member;
-import stander.stander.model.Entity.Seat;
 import stander.stander.model.Form.LoginForm;
 import stander.stander.service.MemberService;
 import stander.stander.service.SeatService;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -35,33 +32,45 @@ public class Rest_LoginController {
 
     @ResponseBody
     @PostMapping("/rest-login")
-    public Map<String, Object> rest_login(@RequestParam("username")String username, @RequestParam("password") String password) {
+    public Member rest_login(@RequestBody Map<String, String> map) {
         try {
+            System.out.println(map.get("username") + map.get("password"));
             LoginForm loginForm = new LoginForm();
-            loginForm.setUsername(username);
-            loginForm.setPassword(password);
+            loginForm.setUsername(map.get("username"));
+            loginForm.setPassword(map.get("password"));
             Member member = memberService.login(loginForm);
-            List<Seat> result = seatService.findUseSeat();
-            Map<String, Object> map = new HashMap<>();
-            map.put("member", member);
-            map.put("seats", result);
-            return map;
+            return member;
         }
         catch (Exception e ) {
             return null;
         }
 
     }
-
+//    @ResponseBody
+//    @PostMapping("/rest-login")
+//    public Map<String, Object> rest_login(@RequestParam("username")String username, @RequestParam("password") String password) {
+//        try {
+//            LoginForm loginForm = new LoginForm();
+//            loginForm.setUsername(username);
+//            loginForm.setPassword(password);
+//            Member member = memberService.login(loginForm);
+//            List<Seat> result = seatService.findUseSeat();
+//            Map<String, Object> map = new HashMap<>();
+//            map.put("member", member);
+//            map.put("seats", result);
+//            return map;
+//        }
+//        catch (Exception e ) {
+//            return null;
+//        }
+//
+//    }
     @ResponseBody
     @PostMapping("/rest_join")
-    public String rest_join(@RequestParam("name") String name,
-                            @RequestParam("username") String username,
-                            @RequestParam("password") String password,
-                            @RequestParam("email") String email) {
+    public String rest_join(@RequestBody Map<String, String> map) {
         try {
             Member member;
-            member = set_join(name, username, password, email);
+            member = set_join(map.get("name)"), map.get("username"), map.get("password"), map.get("email"));
             memberService.join(member);
             return "ok";
         }catch(Exception e){
