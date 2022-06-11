@@ -3,7 +3,7 @@ package stander.stander.controller.Rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import stander.stander.model.Entity.Member;
 import stander.stander.model.Entity.Seat;
@@ -34,7 +34,7 @@ public class Rest_MyPageController {
     private String ip;
 
     @PostMapping("/rest_mypage")
-    public Map<String, Object> rest_mypage(@RequestBody Map<String, String> map1) {
+    public Map<String, Object> rest_mypage(@RequestParam Map<String, String> map1) {
         try {
             Map<String, Object> map = new HashMap<>();
             Member member = memberService.findById(Long.parseLong(map1.get("id")));
@@ -55,7 +55,7 @@ public class Rest_MyPageController {
 
     }
     @PostMapping("/rest_mypage/qr")
-    public String check_qr(@RequestBody Map<String, String> map) {
+    public String check_qr(@RequestParam Map<String, String> map) {
         try{
             Member member = memberService.findById(Long.parseLong(map.get("id")));
             if(member.getQr() == null) {
@@ -70,7 +70,7 @@ public class Rest_MyPageController {
     }
 
     @PostMapping("/rest_mypage/use_history")
-    public List<String> use_history(@RequestBody Map<String, String> map) {
+    public List<String> use_history(@RequestParam Map<String, String> map) {
 
         try {
             Long id = Long.parseLong(map.get("id"));

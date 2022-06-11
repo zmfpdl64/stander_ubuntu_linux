@@ -2,10 +2,7 @@ package stander.stander.controller.Rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import stander.stander.model.Entity.Member;
 import stander.stander.model.Form.LoginForm;
 import stander.stander.service.MemberService;
@@ -32,13 +29,16 @@ public class Rest_LoginController {
 
     @ResponseBody
     @PostMapping("/rest-login")
-    public Member rest_login(@RequestBody Map<String, String> map) {
+    public Member rest_login(@ModelAttribute LoginForm loginForm){
         try {
-            System.out.println(map.get("username") + map.get("password"));
-            LoginForm loginForm = new LoginForm();
-            loginForm.setUsername(map.get("username"));
-            loginForm.setPassword(map.get("password"));
+            //System.out.println(map);
+            //System.out.println(map.get("username") + map.get("password"));
+//            loginForm.setUsername(map.get("username"));
+//            loginForm.setPassword(map.get("password"));
+            loginForm.setUsername(loginForm.getUsername());
+            loginForm.setUsername(loginForm.getUsername());
             Member member = memberService.login(loginForm);
+
             return member;
         }
         catch (Exception e ) {
@@ -67,7 +67,7 @@ public class Rest_LoginController {
 //    }
     @ResponseBody
     @PostMapping("/rest_join")
-    public String rest_join(@RequestBody Map<String, String> map) {
+    public String rest_join(@RequestParam Map<String, String> map) {
         try {
             Member member;
             member = set_join(map.get("name)"), map.get("username"), map.get("password"), map.get("email"));
@@ -76,7 +76,6 @@ public class Rest_LoginController {
         }catch(Exception e){
             return null;
         }
-
     }
 
     private Member set_join(String name, String username, String password, String email) {

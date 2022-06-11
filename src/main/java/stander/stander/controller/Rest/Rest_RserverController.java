@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import stander.stander.model.Entity.Member;
 import stander.stander.model.Entity.Seat;
@@ -68,7 +68,7 @@ public class Rest_RserverController {
     }
 
     @PostMapping("/rest_reserve/complete")
-    public String reserve_complete(@RequestBody Map<String, String> map) {
+    public String reserve_complete(@RequestParam Map<String, String> map) {
         try{
             long id = Long.parseLong(map.get("id"));
             Member member = memberService.findById(id);
@@ -98,7 +98,7 @@ public class Rest_RserverController {
         }
     }
     @PostMapping("/rest_pay")
-    public String rest_pay(@RequestBody Map<String,String> map) {
+    public String rest_pay(@RequestParam Map<String,String> map) {
         try {
             Long id = Long.parseLong(map.get("id"));
             int time = Integer.parseInt(map.get("time"));
@@ -113,7 +113,7 @@ public class Rest_RserverController {
     }
 
     @PostMapping("/rest_reserve/clear")
-    public String clear(@RequestBody Map<String, String> map) {
+    public String clear(@RequestParam Map<String, String> map) {
         try{
             Long id = Long.parseLong(map.get("id"));
             Member member = memberService.findById(id);
