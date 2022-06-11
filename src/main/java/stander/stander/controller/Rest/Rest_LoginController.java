@@ -7,9 +7,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import stander.stander.model.Entity.Member;
+import stander.stander.model.Entity.Seat;
 import stander.stander.model.Form.LoginForm;
 import stander.stander.service.MemberService;
 import stander.stander.service.SeatService;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class Rest_LoginController {
@@ -29,14 +34,18 @@ public class Rest_LoginController {
     private String ip;
 
     @ResponseBody
-    @PostMapping("/rest_login")
-    public Member rest_login(@RequestParam("username")String username, @RequestParam("password") String password) {
+    @PostMapping("/rest-login")
+    public Map<String, Object> rest_login(@RequestParam("username")String username, @RequestParam("password") String password) {
         try {
             LoginForm loginForm = new LoginForm();
             loginForm.setUsername(username);
             loginForm.setPassword(password);
             Member member = memberService.login(loginForm);
-            return member;
+            List<Seat> result = seatService.findUseSeat();
+            Map<String, Object> map = new HashMap<>();
+            map.put("member", member);
+            map.put("seats", result);
+            return map;
         }
         catch (Exception e ) {
             return null;

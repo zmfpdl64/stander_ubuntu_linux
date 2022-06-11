@@ -33,7 +33,7 @@ public class ReserveController {
     @Value("${file.dir}")
     private String fileDir;
 
-    @Value("$ip.address}")
+    @Value("{$ip.address}")
     private String ip;
 
     @GetMapping
