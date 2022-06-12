@@ -1,6 +1,7 @@
 package stander.stander.model.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +19,7 @@ public class Seat {
 
     private String seat_num;
     @OneToOne
-    @JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class)
+    @JsonIgnore
     @JoinColumn(name = "member_id")
     private Member member;
 

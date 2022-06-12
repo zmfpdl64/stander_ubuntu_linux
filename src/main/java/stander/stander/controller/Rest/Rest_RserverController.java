@@ -103,7 +103,6 @@ public class Rest_RserverController {
             seatService.save(seat);
             map1.put("member", member);
 
-
             return map1;
         }
         catch (Exception e) {
@@ -131,7 +130,6 @@ public class Rest_RserverController {
         try{
             Long id = Long.parseLong(map.get("id"));
             Member member = memberService.findById(id);
-            if(member == null) return null;
             member.setQr(null);
 
             seatService.clearOne(member);
@@ -139,6 +137,15 @@ public class Rest_RserverController {
             return "ok";
         }
         catch(Exception e) {
+            return null;
+        }
+    }
+    @PostMapping("/rest_reserve/clearall")
+    public String clear() {
+        try {
+            seatService.clearAll();
+            return "ok";
+        } catch (Exception e) {
             return null;
         }
     }
