@@ -101,7 +101,8 @@ public class Rest_RserverController {
             seat.setCheck_in(new Date());
             member.setSeat(seat);
             seatService.save(seat);
-            map1.put("seat", seat);
+            map1.put("member", member);
+
 
             return map1;
         }
