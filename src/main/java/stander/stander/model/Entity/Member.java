@@ -29,7 +29,6 @@ public class Member {
     private Long age;
 
     @OneToOne
-    @JsonIgnore
     @JoinColumn(name = "seat_id")
     private Seat seat;
 

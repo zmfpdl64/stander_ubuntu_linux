@@ -31,12 +31,8 @@ public class Rest_LoginController {
     @PostMapping("/rest-login") //안드로이드에서 rest api를 이용한 로그인 방식이다.
     public Member rest_login(@ModelAttribute LoginForm loginForm){
         try {
-            //System.out.println(map);
-            //System.out.println(map.get("username") + map.get("password"));
-//            loginForm.setUsername(map.get("username"));
-//            loginForm.setPassword(map.get("password"));
             loginForm.setUsername(loginForm.getUsername());
-            loginForm.setUsername(loginForm.getUsername());
+            loginForm.setUsername(loginForm.getUsername());     //사용자에게 아이디 비밀번호를 입력받아 회원이 존재하면 로그인을 진행한다.
             Member member = memberService.login(loginForm);
 
             return member;
@@ -46,32 +42,15 @@ public class Rest_LoginController {
         }
 
     }
-//    @ResponseBody
-//    @PostMapping("/rest-login")
-//    public Map<String, Object> rest_login(@RequestParam("username")String username, @RequestParam("password") String password) {
-//        try {
-//            LoginForm loginForm = new LoginForm();
-//            loginForm.setUsername(username);
-//            loginForm.setPassword(password);
-//            Member member = memberService.login(loginForm);
-//            List<Seat> result = seatService.findUseSeat();
-//            Map<String, Object> map = new HashMap<>();
-//            map.put("member", member);
-//            map.put("seats", result);
-//            return map;
-//        }
-//        catch (Exception e ) {
-//            return null;
-//        }
-//
-//    }
+
     @ResponseBody
     @PostMapping("/rest_join")  //안드로이드에서 name, username, password, email을 입력받아 회원가입하는 코드이다.
     public String rest_join(@RequestParam Map<String, String> map) {
         try {
+
             Member member;
-            member = set_join(map.get("name)"), map.get("username"), map.get("password"), map.get("email"));
-            memberService.join(member);
+            member = set_join(map.get("name"), map.get("username"), map.get("password"), map.get("email"));
+            memberService.join(member); //사용자에게 회원가입하기 위한 입력값을 받고 회원가입에 성공하면 ok 문자열을 전달한다.
             return "ok";
         }catch(Exception e){
             return null;
