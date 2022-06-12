@@ -28,10 +28,10 @@ public class TimeDiminish {
         if(!Objects.isNull(useSeat)) {
             for (Seat seat : useSeat) {
                 int use_time = ((int) new Date().getTime() - (int) seat.getCheck_in().getTime()) / 1000;
-                log.info("use_time = {}", use_time);
+//                log.info("use_time = {}", use_time);
 
                 int time = seat.getMember().getTime() - use_time;
-                log.info("time = {}", time);
+//                log.info("time = {}", time);
 
                 if (seat.getMember().getTime() == 0) {
                     Member member = seat.getMember();

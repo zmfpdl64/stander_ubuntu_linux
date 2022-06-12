@@ -16,7 +16,6 @@ import stander.stander.web.SessionConstants;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +32,7 @@ public class ReserveController {
     @Value("${file.dir}")
     private String fileDir;
 
-    @Value("{$ip.address}")
+    @Value("${ip.address}")
     private String ip;
 
     @GetMapping
@@ -125,9 +124,6 @@ public class ReserveController {
             }
 
 
-
-
-
             if(member.getTime() == 0) {
                 model.addAttribute("msg", "시간 충전이 필요합니다");
                 model.addAttribute("num", num);
@@ -204,6 +200,11 @@ public class ReserveController {
 
     @GetMapping("/clear")
     public String clear(Model model) {
+        List<Seat> result = sitService.findUseSeat();
+        for(Seat s : result) {
+            s.getMember().setSeat(null);
+        }
+
         sitService.clearAll();
 //        List<Sit> sits = sitService.findAll();
 //        model.addAttribute("sits", sits);
@@ -227,6 +228,7 @@ public class ReserveController {
         }
         redirectAttributes.addFlashAttribute("msg", "퇴실이 완료 되었습니다.");
         member.setQr(null);
+        member.setSeat(null);
         memberService.modify(member);
 
         sitService.clearOne(member);

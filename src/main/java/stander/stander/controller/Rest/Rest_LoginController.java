@@ -28,7 +28,7 @@ public class Rest_LoginController {
     private String ip;
 
     @ResponseBody
-    @PostMapping("/rest-login")
+    @PostMapping("/rest-login") //안드로이드에서 rest api를 이용한 로그인 방식이다.
     public Member rest_login(@ModelAttribute LoginForm loginForm){
         try {
             //System.out.println(map);
@@ -66,7 +66,7 @@ public class Rest_LoginController {
 //
 //    }
     @ResponseBody
-    @PostMapping("/rest_join")
+    @PostMapping("/rest_join")  //안드로이드에서 name, username, password, email을 입력받아 회원가입하는 코드이다.
     public String rest_join(@RequestParam Map<String, String> map) {
         try {
             Member member;

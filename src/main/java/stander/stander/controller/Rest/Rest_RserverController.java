@@ -11,7 +11,10 @@ import stander.stander.model.Entity.Seat;
 import stander.stander.service.MemberService;
 import stander.stander.service.SeatService;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -68,18 +71,20 @@ public class Rest_RserverController {
     }
 
     @PostMapping("/rest_reserve/complete")
-    public String reserve_complete(@RequestParam Map<String, String> map) {
+    public Map<String, Object> reserve_complete(@RequestParam Map<String, String> map) {
         try{
+            Map<String, Object> map1 = new HashMap<>();
             long id = Long.parseLong(map.get("id"));
             Member member = memberService.findById(id);
+
             if (seatService.check_sit(id)) {
-                return "1";
+                map.put("status", "1");
             }
-            if (seatService.check_member(member)) {
-                return "2";
+            else if (seatService.check_member(member)) {
+                map.put("status", "2");
             }
-            if(member.getTime() == 0) {
-                return "3";
+            else if(member.getTime() == 0) {
+                map.put("status", "3");
             }
             String url = "http://"+ ip +":8080/open/" + member.getId();
             member.setQr(url);
@@ -88,12 +93,14 @@ public class Rest_RserverController {
             seat.setSeat_num(map.get("seat_num"));
             seat.setPresent_use(true);
             seat.setCheck_in(new Date());
+            member.setSeat(seat);
             seatService.save(seat);
+            map1.put("seat", seat);
 
-            return "ok";
+            return map1;
         }
         catch (Exception e) {
-            System.out.println(Arrays.toString(e.getStackTrace()));
+//            System.out.println(Arrays.toString(e.getStackTrace()));
             return null;
         }
     }
