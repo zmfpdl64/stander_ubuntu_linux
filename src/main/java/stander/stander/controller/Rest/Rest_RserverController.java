@@ -78,13 +78,19 @@ public class Rest_RserverController {
             Member member = memberService.findById(id);
 
             if (seatService.check_sit(id)) {
-                map.put("status", "1");
+                map1.put("status", "1");
+                map1.put("seat", null);
+                return map1;
             }
             else if (seatService.check_member(member)) {
-                map.put("status", "2");
+                map1.put("status", "2");
+                map1.put("seat", null);
+                return map1;
             }
             else if(member.getTime() == 0) {
-                map.put("status", "3");
+                map1.put("status", "3");
+                map1.put("seat", null);
+                return map1;
             }
             String url = "http://"+ ip +":8080/open/" + member.getId();
             member.setQr(url);
