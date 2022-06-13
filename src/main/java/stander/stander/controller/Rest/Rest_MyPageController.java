@@ -65,7 +65,7 @@ public class Rest_MyPageController {
             if(member.getQr() == null) {        //지금 현재 예약 상태인지 확인하는 코드이다.
                 return null;
             }
-            return "ok";
+            return member.getQr();
         }
         catch (Exception e) {
             return null;
