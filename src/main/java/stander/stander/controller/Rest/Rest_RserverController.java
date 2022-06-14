@@ -61,13 +61,12 @@ public class Rest_RserverController {
                 String left_time = String.join("", user_name) + "\n" + day + "일 " + hour + "시간 " + minute + "분" + second + "초";
                 System.out.println(left_time);
                 map.put("seat" + seat.getSeat_num(), left_time);
-                return map;
         }
+            return map;
 
         } catch(Exception e) {
             return null;
         }
-        return null;
     }
 
     @PostMapping("/rest_reserve/complete") //실제로 안드로이드에서 서버로 예약을 요청하는 url이다.
@@ -132,7 +131,6 @@ public class Rest_RserverController {
             Member member = memberService.findById(id); // 퇴실하기 버튼을 눌렀을 떄 해당 회원을 찾고 좌석 컬럼과 qr컬럼을 공백으로 만들어 퇴실처리를 한다.
             member.setSeat(null);
             member.setQr(null);
-
             seatService.clearOne(member);
 
             return "ok";
