@@ -1,6 +1,7 @@
 # STANDER
 
 <h1>http://www.stander-mcs.com</h1>
+<h1>http://3.38.33.154/</h1>
 
 git clone https://github.com/zmfpdl64/STANDER.git
 
